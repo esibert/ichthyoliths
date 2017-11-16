@@ -13,7 +13,10 @@ distmat(distpairs, type = "avg")
 distance value to populate the matrix with.}
 }
 \value{
-distance matrix of dimensions nxn where n is the number of teeth considered.
+distance matrix of dimensions n x n where n is the number of teeth considered.
+Row and column names are the numbers corresponding to each tooth in the original
+dataset (columns 3 and 4 from output of the \code{\link{distances_clust}} and
+\code{\link{distances_no_clust}} functions).
 }
 \description{
 The distmat function takes output from the \code{\link{distances_clust}} or

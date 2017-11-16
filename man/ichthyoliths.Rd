@@ -16,7 +16,7 @@ The disparity method used in this version of the ichthyoliths package (0.0.0.900
 is described in detail in the submitted manuscript: "A framework for
 quantifying morphological variation in microfossil fish teeth and associated
 R package, ichthyoliths" by Elizabeth Sibert, Matt Friedman, Pincelli Hull,
-and Richard Norris. For details please contact Elizabeth Sibert \email{eibert@fas.harvard.edu}
+and Richard Norris. For details please contact Elizabeth Sibert \email{esibert@fas.harvard.edu}.
 
 At the heart of the ichthyoliths package are functions to calculate
 tooth disparity ichthyoliths included in the analysis. They take advantage

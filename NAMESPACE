@@ -2,6 +2,7 @@
 
 export(distances_clust)
 export(distances_no_clust)
+export(distmat)
 export(import_traits_csvs)
 export(toothdat_cleanup)
 import(doParallel)

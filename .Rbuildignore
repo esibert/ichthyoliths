@@ -1,0 +1,6 @@
+^\.Rprofile$
+^.*\.Rproj$
+^\.Rproj\.user$
+.gitignore
+R\hello.R
+man\hello.Rd

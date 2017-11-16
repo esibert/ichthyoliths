@@ -1,6 +1,4 @@
-packrat/lib*/
 .Rproj.user
 .Rprofile
 .Rhistory
 ichthyoliths.Rproj
-.Rbuildignore
