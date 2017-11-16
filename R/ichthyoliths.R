@@ -16,8 +16,6 @@
 #' of parallel computing, as pairwise-comparisons can grow quickly.This relies
 #' on the package doParallel, and uses a foreach loop.
 #'
-#' I have now made a change to this file. Lets see what it does...
-#'
 #' @docType package
 #'
 #' @name ichthyoliths
