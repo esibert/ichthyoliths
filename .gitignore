@@ -2,3 +2,5 @@
 .Rprofile
 .Rhistory
 ichthyoliths.Rproj
+man/hello.Rd
+R/hello.R
