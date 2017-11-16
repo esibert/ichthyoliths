@@ -1,8 +1,6 @@
-packrat/
+packrat/lib*/
 .Rproj.user
 .Rprofile
 .Rhistory
 ichthyoliths.Rproj
 .Rbuildignore
-R/hello.R
-.gitignore
