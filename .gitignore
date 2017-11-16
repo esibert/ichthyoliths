@@ -1,13 +1,4 @@
-<<<<<<< HEAD
-=======
-packrat/
->>>>>>> 5d6bec1730ba121cb53874f35dac979e20725325
 .Rproj.user
 .Rprofile
 .Rhistory
 ichthyoliths.Rproj
-=======
-.Rbuildignore
-R/hello.R
-.gitignore
->>>>>>> 5d6bec1730ba121cb53874f35dac979e20725325
