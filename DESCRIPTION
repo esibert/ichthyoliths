@@ -14,6 +14,8 @@ Encoding: UTF-8
 LazyData: true
 Authors@R: person("Elizabeth", "Sibert", email = "esibert@fas.harvard.edu",
   role = c("aut", "cre"))
+URL: https://github.com/esibert/ichthyoliths
+BugReports: https://github.com/esibert/ichthyoliths/issues
 Imports: 
    doParallel,
    foreach,
