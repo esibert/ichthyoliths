@@ -5,7 +5,7 @@ Version: 0.0.0.9000
 Author: Elizabeth Sibert
 Maintainer: Elizabeth Sibert <esibert@fas.harvard.edu>
 Description: This package uses quantative ichthyolith morphological 
-    characters and states as described initially in Sibert et al (2018)
+    characters and states as described initially in Sibert et al (submitted)
     and is currently using character/state matrices as described in the
     continually updated version of the ichthyolith morphological framework,
     available at elizabethsibert.com/ichthyoliths, last updated on 11/11/2017.
