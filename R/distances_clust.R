@@ -20,16 +20,16 @@
 #'
 #' @param weights a vector of how much each trait is weighted in the analysis
 #' can use data(weights) included in this package, or define your own.
-#' 
-#' @param startCol a numeric value referring to the column which contains the first 
-#' character trait in the morph matrix. Allows for differeing numbers of columns 
+#'
+#' @param startCol a numeric value referring to the column which contains the first
+#' character trait in the morph matrix. Allows for differeing numbers of columns
 #' of metadata for each object
-#' 
-#' @param endCol a numeric value referring to the column which contains the last 
-#' character trait in the morph matrix. If no value, this is assumed to be the last 
-#' column in the morph matrix. 
-#' 
-#' @param conTraits ######### ideally a character vector containing the column names 
+#'
+#' @param endCol a numeric value referring to the column which contains the last
+#' character trait in the morph matrix. If no value, this is assumed to be the last
+#' column in the morph matrix.
+#'
+#' @param conTraits ######### ideally a character vector containing the column names
 #' of the continuous traits to consider, or a numeric vector containing the column numbers. ########
 #'
 #' @param coresFree a numerical value denoting how many cores to leave free
@@ -59,7 +59,7 @@ distances_clust<-function(morph, traits, weights, startCol = 7, endCol = NULL, c
    if(missing(weights)) {
       weights<-rep(1, length(traits)+3)
    }
-  
+
   if(missing(endCol)) {
     endCol <- length(morph)
   }
@@ -68,7 +68,6 @@ distances_clust<-function(morph, traits, weights, startCol = 7, endCol = NULL, c
    morph.mat<-morph[,startCol:endCol]  # startCol is the column to start pulling morphological trait data from
 
    # Create sets of pairs:
-   #species<-teeth$Obj_num  # length should match number of teeth in analysis - uses object numbers from subset
    species<-c(1:length(morph.mat[,4])) #doesn't matter what column this calls, b/c just giving integers 1-n
    combs.rows<-t(combn(species,2)) #2xn Matrix of all possible pairwise combinations of species
    toothID<-as.numeric(rownames(morph))
@@ -93,12 +92,12 @@ distances_clust<-function(morph, traits, weights, startCol = 7, endCol = NULL, c
          Traitscomb<-c(Traitscomb, foo.w)   #Puts the trait[i] distance value in the comparisson vector
       }
 
-      
+
       if(contTraits == TRUE) {
         #add in continuous distances calculated based on **normalized** input vectors;
         #Must be last columns in trait matrix (cannot be mixed into the discrete traits)
         #Called: AR, LEN, WID
-  
+
         if(morph$AR[cc[1]] == 0 ) { #| morph$AR[cc[2]] == 0 ) {
            Traitscomb<-Traitscomb } #else {
         else if(morph$AR[cc[2]] == 0) {
@@ -108,7 +107,7 @@ distances_clust<-function(morph, traits, weights, startCol = 7, endCol = NULL, c
            ar.dist<-ar.dist/max(ar.dist) #normalized
            ar<-ar.dist[i]*weights[length(traits)+1]
            Traitscomb<-c(Traitscomb, ar) }
-  
+
         if(morph$LEN[cc[1]] == 0) {
            Traitscomb<-Traitscomb }
         else if(morph$LEN[cc[2]] == 0) {
@@ -118,7 +117,7 @@ distances_clust<-function(morph, traits, weights, startCol = 7, endCol = NULL, c
            len.dist<-len.dist/max(len.dist) #normalized
            len<-len.dist[i]*weights[length(traits)+2]
            Traitscomb<-c(Traitscomb, len) }
-  
+
         if(morph$WID[cc[1]] == 0) {
            Traitscomb<-Traitscomb }
         else if(morph$WID[cc[2]] == 0) {
