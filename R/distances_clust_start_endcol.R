@@ -1,4 +1,4 @@
-#' distances_clust
+#' distances_clust_start_endcol
 #'
 #' The distances_clust function is the heart of the ichthyoliths package. It
 #' calculates the morphological disparity of teeth by summing the distances
@@ -13,27 +13,21 @@
 #'
 #' @import iterators
 #'
-#' @param morph a data frame with (at least) columns for unique tooth identifiers
-#' (IDCol specified below) and columns containing morphometric data to input into
-#' the disparity calculation. Other columns can also be included in this data frame,
-#' but will be ignord by the function, as specified below.
+#' @param morph a data frame of the form returned by toothdat_cleanup
 #'
-#' @param traits a list of trait connectivity matices. (For ichthyolith analyses based
-#' after Sibert et al 2019, you can use use the 'traits' object included in this package,
-#' which the function will include if you do not spcify a traits list.)
+#' @param traits a list of trait connectivity matices (for standard datasets
+#' use data(traits) included in this package
 #'
 #' @param weights a vector of how much each trait is weighted in the analysis
 #' can use data(weights) included in this package, or define your own.
 #'
-#' @param morphCols a vetor stating the columns with morphometric data to pull for analysis.
-#' This can be a continous list (e.g.c(1:9) to take columns 1-9 as morphometric data) or it
-#' can be a subset (e.g. c(1:3, 5, 7:9) to exclude columns 6 and 8).
+#' @param startCol a numeric value referring to the column which contains the first
+#' character trait in the morph matrix. Allows for differeing numbers of columns
+#' of metadata for each object
 #'
-#' @param traitsStartCol is the numeric value of the column in the morph data frame
-#' that matches to the first character in the traits list of connectivity matrices.
-#'
-#' @param IDCol is a numeric value referring to the column in the morph data frame which
-#' contains the unique identifiers for each object.
+#' @param endCol a numeric value referring to the column which contains the last
+#' character trait in the morph matrix. If no value, this is assumed to be the last
+#' column in the morph matrix.
 #'
 #' @param conTraits ######### ideally a character vector containing the column names
 #' of the continuous traits to consider, or a numeric vector containing the column numbers. ########
@@ -47,7 +41,7 @@
 #' @return Returns a dataframe of each pairwise comparison with the
 #' following columns: \cr
 #' "1" and "2" - the combination of teeth being considered \cr
-#' "ToothA" and "ToothB", - the row number for each tooth from the original input dataset (will be different from the 1 and 2 column only if objects were previously removed from the dataset) \cr
+#' "ToothA" and "ToothB", - the row number for each tooth from the original input dataset \cr
 #' "dist.sum" - the summed distance between the two teeth \cr
 #' "dist.avg" - the averaged distance between the two teeth \cr
 #' "traits.length" - the number of traits actually considered in the comparison \cr
@@ -55,7 +49,7 @@
 #'
 #' @export
 
-distances_clust<-function(morph, traits, weights, morphCols, traitsStartCol, IDCol, contTraits = TRUE, coresFree=2) {
+distances_clust<-function(morph, traits, weights, startCol = 7, endCol = NULL, contTraits = TRUE, coresFree=2) {
    #call traits distance matrices directly from the working directory
    if(missing(traits)) {
       traits<-data(traits)
@@ -66,23 +60,19 @@ distances_clust<-function(morph, traits, weights, morphCols, traitsStartCol, IDC
       weights<-rep(1, length(traits)+3)
    }
 
-   if(missing(traitsStartCol)) {
-      traitsStartCol <- morphCols[1]
-   }
+  if(missing(endCol)) {
+    endCol <- length(morph)
+  }
 
    # Create matrix of just traits, so that names can be maintained in the function properly
-   morph.mat<-morph[,morphCols]  # startCol is the column to start pulling morphological trait data from
+   morph.mat<-morph[,startCol:endCol]  # startCol is the column to start pulling morphological trait data from
 
    # Create sets of pairs:
-   species<-c(1:length(morph.mat[,4])) #doesn't matter what column this calls, b/c just giving integers 1 to n
+   species<-c(1:length(morph.mat[,4])) #doesn't matter what column this calls, b/c just giving integers 1-n
    combs.rows<-t(combn(species,2)) #2xn Matrix of all possible pairwise combinations of species
    toothID<-as.numeric(rownames(morph))
-   objID<-as.character(morph[,IDCol])
+   objID<-as.character(morph$ID)
    combs.toothID<-t(combn(toothID,2))
-
-   # Select the subset of traits to use in the traits list.
-   trait_list_positions <- morphCols-(traitsStartCol-1)
-   selected_traits <- traits[trait_list_positions]
 
    #Set up cores and cluster to run loop
    cores<-detectCores()
@@ -94,9 +84,9 @@ distances_clust<-function(morph, traits, weights, morphCols, traitsStartCol, IDC
       cc<-combs.rows[i,]  #Call the pairwise comparison to look at
       Traitscomb<-as.vector(c())     #create empty vector to fill with comparissons of whichever 2 species are specified for the loop
 
-      for(j in 1:length(selected_traits)) {   #For however many traits there are in this analysis...
+      for(j in 1:length(traits)) {   #For however many traits there are...
          w<-weights[j]              #trait weight value
-         tt<-data.frame(selected_traits[j]) #calls relevant trait matrix and turns it into dataframe for easier handling
+         tt<-data.frame(traits[j])    #calls relevant trait matrix and turns it into dataframe for easier handling
          foo<-as.numeric(tt[morph.mat[cc[1],j], morph.mat[cc[2],j]]) #calls the distance value of trait[i] by looking up first Dent A's trait[i] and then Dent B's Trait[i]
          foo.w<-foo*w
          Traitscomb<-c(Traitscomb, foo.w)   #Puts the trait[i] distance value in the comparisson vector
@@ -156,6 +146,6 @@ distances_clust<-function(morph, traits, weights, morphCols, traitsStartCol, IDC
    #col<-length(unlist(dat[1]))
    #dist.df<-data.frame(matrix(unlist(dat), ncol=col, byrow=T))
    dist.df<-data.frame(dat)
-   names(dist.df)<-c("1", "2", "ObjectA","ObjectB","dist.sum","dist.avg", "traits.length", 'objID.A', 'objID.B')
+   names(dist.df)<-c("1", "2", "ToothA","ToothB","dist.sum","dist.avg", "traits.length", 'objID.A', 'objID.B')
    return(dist.df)
 }

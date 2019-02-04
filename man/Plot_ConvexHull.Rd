@@ -5,7 +5,8 @@
 \title{Plot_ConvexHull}
 \usage{
 Plot_ConvexHull(xcoord, ycoord = NULL, border.line = TRUE,
-  lcolor = "black", shade = FALSE, scolor = NULL, alpha.f = 0.5, ...)
+  lcolor = "black", shade = FALSE, scolor = NULL, alpha.f = 0.5,
+  ...)
 }
 \arguments{
 \item{xcoord}{vector of values defining the x-coordinates OR data frame of x
