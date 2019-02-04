@@ -49,7 +49,7 @@
 #'
 #' @export
 
-distances_clust<-function(morph, traits, weights, startCol = 7, endCol = NULL, contTraits = TRUE, coresFree=2) {
+distances_clust_start_endcol<-function(morph, traits, weights, startCol = 7, endCol = NULL, contTraits = TRUE, coresFree=2) {
    #call traits distance matrices directly from the working directory
    if(missing(traits)) {
       traits<-data(traits)
