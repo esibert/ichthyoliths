@@ -5,7 +5,7 @@
 \title{distances_clust}
 \usage{
 distances_clust(morph, traits, weights, morphCols, traitsStartCol, IDCol,
-  contTraits = TRUE, coresFree = 2)
+  subsetWeights, contTraits = FALSE, coresFree = 2)
 }
 \arguments{
 \item{morph}{a data frame with (at least) columns for unique tooth identifiers
@@ -30,6 +30,9 @@ that matches to the first character in the traits list of connectivity matrices.
 \item{IDCol}{is a numeric value referring to the column in the morph data frame which
 contains the unique identifiers for each object.}
 
+\item{subsetWeights}{is a logical for whether the weights vector applies to the whole
+list of traits (FALSE) or just the subset called by the morphCols vector (TRUE).}
+
 \item{coresFree}{a numerical value denoting how many cores to leave free
 on your machine when running in parallel. Defaults to 2.
 Use detectCores() to determine the number of cores available on the computer
@@ -37,7 +40,9 @@ to use. The number of cores in the cluster created in this function is
 detectCores()-coresFree}
 
 \item{conTraits}{######### ideally a character vector containing the column names
-of the continuous traits to consider, or a numeric vector containing the column numbers. ########}
+of the continuous traits to consider, or a numeric vector containing the column numbers.
+Currently it is just a logical for default continuous traits of LEN, WID, and AR.
+Default value is FALSE.########}
 }
 \value{
 Returns a dataframe of each pairwise comparison with the
