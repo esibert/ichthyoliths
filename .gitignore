@@ -3,3 +3,5 @@
 .Rhistory
 ichthyoliths.Rproj
 testing.R
+man/ichthyoliths.Rd
+R/ichthyoliths.R
