@@ -35,8 +35,13 @@
 #' @param IDCol is a numeric value referring to the column in the morph data frame which
 #' contains the unique identifiers for each object.
 #'
+#' @param subsetWeights is a logical for whether the weights vector applies to the whole
+#' list of traits (FALSE) or just the subset called by the morphCols vector (TRUE).
+#'
 #' @param conTraits ######### ideally a character vector containing the column names
-#' of the continuous traits to consider, or a numeric vector containing the column numbers. ########
+#' of the continuous traits to consider, or a numeric vector containing the column numbers.
+#' Currently it is just a logical for default continuous traits of LEN, WID, and AR.
+#' Default value is FALSE.########
 #'
 #' @param coresFree a numerical value denoting how many cores to leave free
 #' on your machine when running in parallel. Defaults to 2.
@@ -55,7 +60,7 @@
 #'
 #' @export
 
-distances_clust<-function(morph, traits, weights, morphCols, traitsStartCol, IDCol, contTraits = TRUE, coresFree=2) {
+distances_clust<-function(morph, traits, weights, morphCols, traitsStartCol, IDCol, subsetWeights, contTraits = FALSE, coresFree=2) {
    #call traits distance matrices directly from the working directory
    if(missing(traits)) {
       traits<-data(traits)
@@ -83,6 +88,11 @@ distances_clust<-function(morph, traits, weights, morphCols, traitsStartCol, IDC
    # Select the subset of traits to use in the traits list.
    trait_list_positions <- morphCols-(traitsStartCol-1)
    selected_traits <- traits[trait_list_positions]
+
+   # if necessary, select the subset of weights to be used in the loop as well.
+   if(subsetWeights == TRUE) {
+      weights <- weights[trait_list_positions]
+   }
 
    #Set up cores and cluster to run loop
    cores<-detectCores()
