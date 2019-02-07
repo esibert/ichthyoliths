@@ -152,7 +152,12 @@ distances_clust<-function(morph, traits, weights, morphCols, traitsStartCol, IDC
       Traitscomb<-unlist(Traitscomb)
       Traitscomb<-as.numeric(Traitscomb)
       Dist<-sum(Traitscomb)  #Adds up distances calculated in inner loop
-      Dist.avg<-mean(Traitscomb) #Mean of distance between 2 species
+
+      if(length(Traitscomb > 1)) { #Mean of distance between 2 species
+         Dist.avg<-mean(Traitscomb)
+         }
+      else Dist.avg <- 0 # fix a divide by zero error
+
       Num.traits<-length(Traitscomb)
       to.dat<-data.frame(cc[1], cc[2], combs.toothID[i,1], combs.toothID[i,2], Dist, Dist.avg, Num.traits, objID[cc[1]], objID[cc[2]])
       to.dat #output of foreach loop
