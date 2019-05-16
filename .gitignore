@@ -1,7 +1,13 @@
+# RProject files
 .Rproj.user
 .Rprofile
 .Rhistory
+# testing and setup files
 ichthyoliths.Rproj
 testing.R
-man/ichthyoliths.Rd
 R/ichthyoliths.R
+man/ichthyoliths.Rd
+
+# old versions of code and manuals
+R/old_function_versions
+readme_v0.0.Rmd

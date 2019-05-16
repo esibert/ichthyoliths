@@ -2,8 +2,6 @@
 
 export(Plot_ConvexHull)
 export(distances_clust)
-export(distances_clust_old)
-export(distances_clust_start_endcol)
 export(distances_no_clust)
 export(distmat)
 export(import_traits_csvs)
