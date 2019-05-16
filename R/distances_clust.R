@@ -36,7 +36,9 @@
 #' contains the unique identifiers for each object.
 #'
 #' @param subsetWeights is a logical for whether the weights vector applies to the whole
-#' list of traits (FALSE) or just the subset called by the morphCols vector (TRUE).
+#' list of traits you have fed into the function (FALSE) or just the subset called by
+#' the morphCols vector (TRUE) from a larger list of weights that apply to all characters
+#' even if not all of them are included in the morphCols vector.
 #'
 #' @param conTraits ######### ideally a character vector containing the column names
 #' of the continuous traits to consider, or a numeric vector containing the column numbers.

@@ -1,24 +1,25 @@
 ---
 title: "Readme"
 author: "Elizabeth Sibert"
-date: "November 16, 2017"
+date: "May 9, 2019"
 output: html_document
 ---
 
+Welcome to the "ichthyoliths" package, A package for calculating morphological disparity of fish teeth (v0.1 and v0.2) and hopefully in the future, also calculating morphological disparity of denticles (v1.0 and above?). 
 
-Welcome to the "ichthyoliths" package. This package contains code for analyzing
-fish tooth morphology, as described in Sibert et al (submitted), 
+For details and help, please contact Elizabeth Sibert \email{esibert@@fas.harvard.edu}.
 
-A package for calculating morphological disparity of fish teeth
+This package is described in detail in the in-prep manuscript (currently hosted here on GitHub) "A morphological character coding scheme for quantifying ichthyolith disparity and its associated R package ichthyoliths", by Elizabeth Sibert and Monica Marion 
+
+It is based off of the code developed for analyzing fish tooth morphology, first used Sibert et al (2018), "Two pulses of morphological diversification in Pacific pelagic fishes following the Cretaceous–Palaeogene mass extinction" (2018) Proceedings of the Royal Society B: Biological Sciences http://doi.org/10.1098/rspb.2018.1194. If you are looking for the code for that manuscript, please see http://github.com/esibert/toothmorph. 
+
+
+*****PLEASE NOTE: THIS FILE IS WILDLY OUT OF DATE SORRY. *****
+Everything below this is from a much earlier version of the package (v0.0) and is in the process of being updated. In the mean time, please see the 'help' documentation for each function. (5/9/2019)
+
 
 The ichthyolith package provides functions to define trait disparity matrices,
 calculate tooth disparity, and create range charts and figures through time.
-
-The disparity method used in this version of the ichthyoliths package (0.0.0.9000)
-is described in detail in the submitted manuscript: "A framework for
-quantifying morphological variation in microfossil fish teeth and associated
-R package, ichthyoliths" by Elizabeth Sibert, Matt Friedman, Pincelli Hull,
-and Richard Norris. For details please contact Elizabeth Sibert \email{esibert@@fas.harvard.edu}.
 
 At the heart of the ichthyoliths package are functions to calculate
 tooth disparity ichthyoliths included in the analysis. They take advantage

@@ -10,7 +10,7 @@
 #' connectivity matrix csv files. Defaults to "Trait*". Case sensitive.
 #' @param csvpath a character vector of full path names. Directory to look for
 #' the trait connectivity csv files. Default correxponds to the  working
-#' directory, \code{\link[base]{getwd()}}
+#' directory, but you can specify a relative or absolute path here.
 #' @param recurs a logical value. Determines whether the search should recurse
 #' into the directory. Defaults to TRUE.
 #' @param ... arguments to be passed to the list.files() function.

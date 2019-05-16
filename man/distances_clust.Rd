@@ -31,7 +31,9 @@ that matches to the first character in the traits list of connectivity matrices.
 contains the unique identifiers for each object.}
 
 \item{subsetWeights}{is a logical for whether the weights vector applies to the whole
-list of traits (FALSE) or just the subset called by the morphCols vector (TRUE).}
+list of traits you have fed into the function (FALSE) or just the subset called by
+the morphCols vector (TRUE) from a larger list of weights that apply to all characters
+even if not all of them are included in the morphCols vector.}
 
 \item{coresFree}{a numerical value denoting how many cores to leave free
 on your machine when running in parallel. Defaults to 2.
