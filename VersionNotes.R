@@ -6,6 +6,9 @@
 #                                            #
 ##############################################
 
+##### v0.2.1 - June 5, 2019 #####
+# Added rangechart function for fossil work
+
 ##### v0.2 - May 9, 2019 #####
 ## Character state updates
 # Added additional morphological characters to accommodate cichlid tooth diversity by splitting character C into C1 [same as old character C] and C2 [number of cusps, can be 1, 2, 3, or 4+]

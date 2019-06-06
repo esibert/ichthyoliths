@@ -20,4 +20,6 @@
 #'
 #' @name ichthyoliths
 #'
+#' @import doParallel
+#'
 NULL
