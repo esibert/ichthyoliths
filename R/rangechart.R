@@ -268,15 +268,15 @@ rangechart <- function(counts, ages = NULL, taxa = NULL, tax.cat = NULL, reorder
    ##### Actually make the plot #####
    ### make blank plot with appropriate dimensions, suppress x- and y- axes
    plot(1:ncol(counts), ylim = c(max(ages), min(ages)),
-        type = "n", xaxt = "n", yaxt = "n", xlab = "", ylab = "Age (Ma)")
+        type = "n", xaxt = "n", yaxt = "n", xlab = "", ylab = "Age (Ma)", ...)
 
    ### add segments to the plot
    segments(1:ncol(counts), lad, 1:ncol(counts), fad,
-            lwd = llwd, col = llcol, lty = llty)
+            lwd = llwd, col = llcol, lty = llty, ...)
 
    if (baselines == TRUE) {
       segments(1:ncol(counts), fad, 1:ncol(counts), rep(par()$usr[3], ncol(counts)),
-               col = blcol, lty = blty, lwd = blwd)
+               col = blcol, lty = blty, lwd = blwd, ...)
    }
 
    ### Add points to the plot
@@ -288,6 +288,7 @@ rangechart <- function(counts, ages = NULL, taxa = NULL, tax.cat = NULL, reorder
          pts.pch<-pch.vec[num.val]
       }
       else if (pch.points == 'by.category') {
+         if(class(tax.cat)=='factor') {tax.cat <- as.numeric(tax.cat)}
          pts.pch <- pch.vec[tax.cat[i]]
       }
       else { pts.pch<-pch.points }
