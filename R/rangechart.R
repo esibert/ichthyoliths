@@ -25,6 +25,10 @@
 #' b) 'lad.by.fad': Sort first by Last Appearence Datum (LAD) then by First Appearence Datum (FAD)
 #' Highlights extinctions.
 #'
+#' @param rangeExtensions takes a vector of calculated range extension LADs and adds them to
+#' the rangechart plot. Note that this numerical vector must be in the same order and have the same
+#' length as the counts table that is fed to the function, and takes the CALCULATED range
+#' extension LAD value. the rangechart function does not calculate range extensions for you.
 #'
 #' @param normalize.counts is a logical. When TRUE, the counts matrix is recalculated to
 #' represent each taxa's occurrance counts as a percentage for each sample (age).
@@ -35,7 +39,7 @@
 #' or count values if normalize.counts = FALSE. If left blank, defaults to NULL. Note that
 #' vector should take the form c(0, breakpoints). An example of this is
 #' count.breaks = c(0, 2, 5, 10) will yield groups of <2%, 2-5%, 5-10%, and 10+%, or
-#' raw counts of 1-2, 2-5, 5-10, and 10+.
+#' raw counts of 1-2, 3-5, 6-10, and 10+.
 #'
 #' @param cex.xaxis is a single numerical value scaling the x-axis labels
 #'
@@ -61,6 +65,12 @@
 #' @param blcol is the col (line color) parameter passed to the baselines segment function.
 #'
 #' @param blty is the lty (line type) parameter passed to the baselines segment function.
+#'
+#' @param elwd is the range extension line width
+#'
+#' @param elcol is the range extension line color
+#'
+#' @param elty is the range extension line type
 #'
 #' @param col.points tells the function what color scheme to use:
 #'
@@ -130,7 +140,8 @@ rangechart <- function(counts, ages = NULL, taxa = NULL, tax.cat = NULL, reorder
                         cex.xaxis = 1, cex.yaxis = 1, yaxis.ticks = FALSE,
                         llwd = 1, llcol = 'gray70', llty = 3,
                         baselines = FALSE, blwd = 0.5, blcol = 'lightblue', blty = 3,
-                        col.points = 'gray70', cols.vec = NULL,
+                       rangeExtensions = NULL, elwd = 0.8, elcol = 'red', elty = 2,
+                       col.points = 'gray70', cols.vec = NULL,
                         pch.points = 16, pch.vec = NULL,
                         cex.points = 1, largesize = 1,
                         xaxis.labels = c('names', 'numeric', 'alphanum'),
@@ -176,6 +187,14 @@ rangechart <- function(counts, ages = NULL, taxa = NULL, tax.cat = NULL, reorder
       counts[is.na(counts)] <- 0
    }
 
+   # check if rangeExtensions is right length
+   if (!is.null(rangeExtensions)) {
+      if(dim(counts)[2] != length(rangeExtensions)) {
+         warning("range extinsions not equal to number of taxa, will not plot extensions")
+         rangeExtensions <- NULL
+      }
+   }
+
    # FAD: First (oldest) occurance datum calls the maximum index (mapped to the ages values)
    # of a non-zero count value for each taxa column in the counts matrix
    fad <- ages[apply(counts, 2, function(x) {max(which (x!=0))})]
@@ -215,9 +234,15 @@ rangechart <- function(counts, ages = NULL, taxa = NULL, tax.cat = NULL, reorder
          counts <- counts[, reorder.vect]
          fad <- ages[apply(counts, 2, function(x) {max(which (x!=0))})]
 
+         # Reorder range extensions vector
+         if(!is.null(rangeExtensions)) rangeExtensions <- rangeExtensions[reorder.vect]
+
          # Next, reorder the counts by FAD
          reorder.vect <- sort(fad, decreasing = TRUE, index.return = TRUE)$ix #pulls index of order by fads
          counts <- counts[, reorder.vect]
+
+         # Reorder range extensions vector
+         if(!is.null(rangeExtensions)) rangeExtensions <- rangeExtensions[reorder.vect]
 
       }
 
@@ -228,9 +253,16 @@ rangechart <- function(counts, ages = NULL, taxa = NULL, tax.cat = NULL, reorder
          counts <- counts[, reorder.vect]
          lad <- ages[apply(counts, 2, function(x) {min(which (x!=0))})]
 
+         # Reorder range extensions vector
+         if(!is.null(rangeExtensions)) rangeExtensions <- rangeExtensions[reorder.vect]
+
          # Next, reorder the counts by LAD
          reorder.vect <- sort(lad, decreasing = TRUE, index.return = TRUE)$ix #pulls index of order by fads
          counts <- counts[, reorder.vect]
+
+         # Reorder range extensions vector
+         if(!is.null(rangeExtensions)) rangeExtensions <- rangeExtensions[reorder.vect]
+
       }
    }
 
@@ -319,6 +351,12 @@ rangechart <- function(counts, ages = NULL, taxa = NULL, tax.cat = NULL, reorder
       #actually add the points
       points(rep(i, length(plocs)), plocs, cex=pts.cex, pch=pts.pch, col=pts.cols,
              ...)
+   }
+
+   ### Add range extension error bars if not null
+   if(!is.null(rangeExtensions)) {
+      segments(1:ncol(counts), lad, 1:ncol(counts), rangeExtensions,
+               col = elcol, lty = elty, lwd = elwd, ...)
    }
 
    ### add axes
