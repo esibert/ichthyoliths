@@ -133,7 +133,9 @@ rangechart <- function(counts, ages = NULL, taxa = NULL, tax.cat = NULL, reorder
                         col.points = 'gray70', cols.vec = NULL,
                         pch.points = 16, pch.vec = NULL,
                         cex.points = 1, largesize = 1,
-                        xaxis.labels = c('names', 'numeric', 'alphanum'), print.xaxis = FALSE, ...) {
+                        xaxis.labels = c('names', 'numeric', 'alphanum'),
+                       print.xaxis = FALSE,
+                       xlab = '', ylab = 'Age (Ma)', ...) {
 
    ##### set up the dataset #####
    # turn a data.frame into a matrix if necessary.
@@ -268,7 +270,7 @@ rangechart <- function(counts, ages = NULL, taxa = NULL, tax.cat = NULL, reorder
    ##### Actually make the plot #####
    ### make blank plot with appropriate dimensions, suppress x- and y- axes
    plot(1:ncol(counts), ylim = c(max(ages), min(ages)),
-        type = "n", xaxt = "n", yaxt = "n", xlab = "", ylab = "Age (Ma)", ...)
+        type = "n", xaxt = "n", yaxt = "n", xlab = xlab, ylab = ylab, ...)
 
    ### add segments to the plot
    segments(1:ncol(counts), lad, 1:ncol(counts), fad,
