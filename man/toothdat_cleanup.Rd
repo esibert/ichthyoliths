@@ -4,8 +4,13 @@
 \alias{toothdat_cleanup}
 \title{toothdat_cleanup}
 \usage{
-toothdat_cleanup(toothdat, fix_dat = FALSE, sortby = "age-obj",
-  toothdims = TRUE, mindim = 100)
+toothdat_cleanup(
+  toothdat,
+  fix_dat = FALSE,
+  sortby = "age-obj",
+  toothdims = TRUE,
+  mindim = 100
+)
 }
 \arguments{
 \item{toothdat}{a data frame of teeth including columns for identification

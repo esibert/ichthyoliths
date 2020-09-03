@@ -4,14 +4,40 @@
 \alias{rangechart}
 \title{rangechart}
 \usage{
-rangechart(counts, ages = NULL, taxa = NULL, tax.cat = NULL,
-  reorder = NULL, normalize.counts = FALSE, count.breaks = NULL,
-  cex.xaxis = 1, cex.yaxis = 1, yaxis.ticks = FALSE, llwd = 1,
-  llcol = "gray70", llty = 3, baselines = FALSE, blwd = 0.5,
-  blcol = "lightblue", blty = 3, col.points = "gray70",
-  cols.vec = NULL, pch.points = 16, pch.vec = NULL, cex.points = 1,
-  largesize = 1, xaxis.labels = c("names", "numeric", "alphanum"),
-  print.xaxis = FALSE, ...)
+rangechart(
+  counts,
+  ages = NULL,
+  taxa = NULL,
+  tax.cat = NULL,
+  reorder = NULL,
+  normalize.counts = FALSE,
+  count.breaks = NULL,
+  cex.xaxis = 1,
+  cex.yaxis = 1,
+  yaxis.ticks = FALSE,
+  llwd = 1,
+  llcol = "gray70",
+  llty = 3,
+  baselines = FALSE,
+  blwd = 0.5,
+  blcol = "lightblue",
+  blty = 3,
+  rangeExtensions = NULL,
+  elwd = 0.8,
+  elcol = "red",
+  elty = 2,
+  col.points = "gray70",
+  cols.vec = NULL,
+  pch.points = 16,
+  pch.vec = NULL,
+  cex.points = 1,
+  largesize = 1,
+  xaxis.labels = c("names", "numeric", "alphanum"),
+  print.xaxis = FALSE,
+  xlab = "",
+  ylab = "Age (Ma)",
+  ...
+)
 }
 \arguments{
 \item{counts}{is the table, matrix, or data.frame of occurrances for each taxa (columns)
@@ -42,7 +68,7 @@ count values, as whole integer numbers. These can be percentages if normalize.co
 or count values if normalize.counts = FALSE. If left blank, defaults to NULL. Note that
 vector should take the form c(0, breakpoints). An example of this is
 count.breaks = c(0, 2, 5, 10) will yield groups of <2%, 2-5%, 5-10%, and 10+%, or
-raw counts of 1-2, 2-5, 5-10, and 10+.}
+raw counts of 1-2, 3-5, 6-10, and 10+.}
 
 \item{cex.xaxis}{is a single numerical value scaling the x-axis labels}
 
@@ -68,6 +94,17 @@ occurrance point to the x-axis. Default is FALSE (no baselines).}
 \item{blcol}{is the col (line color) parameter passed to the baselines segment function.}
 
 \item{blty}{is the lty (line type) parameter passed to the baselines segment function.}
+
+\item{rangeExtensions}{takes a vector of calculated range extension LADs and adds them to
+the rangechart plot. Note that this numerical vector must be in the same order and have the same
+length as the counts table that is fed to the function, and takes the CALCULATED range
+extension LAD value. the rangechart function does not calculate range extensions for you.}
+
+\item{elwd}{is the range extension line width}
+
+\item{elcol}{is the range extension line color}
+
+\item{elty}{is the range extension line type}
 
 \item{col.points}{tells the function what color scheme to use:
 

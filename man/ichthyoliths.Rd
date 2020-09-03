@@ -3,7 +3,6 @@
 \docType{package}
 \name{ichthyoliths}
 \alias{ichthyoliths}
-\alias{ichthyoliths-package}
 \title{ichthyoliths}
 \description{
 A package for calculating morphological disparity of fish teeth

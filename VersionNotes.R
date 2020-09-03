@@ -6,6 +6,9 @@
 #                                            #
 ##############################################
 
+##### v0.2.2 - August 2020 #####
+# Added range extension option for rangechart function
+
 ##### v0.2.1 - June 5, 2019 #####
 # Added rangechart function for fossil work
 

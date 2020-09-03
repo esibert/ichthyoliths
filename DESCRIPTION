@@ -1,7 +1,7 @@
 Package: ichthyoliths
 Type: Package
 Title: Analyze Morphological Disparity of Ichthyoliths
-Version: 0.2
+Version: 0.2.2
 Author: Elizabeth Sibert
 Maintainer: Elizabeth Sibert <esibert@fas.harvard.edu>
 Description: This package uses quantative ichthyolith morphological 
@@ -21,4 +21,4 @@ Imports:
    foreach,
    iterators
 Suggests: 
-RoxygenNote: 6.1.1
+RoxygenNote: 7.1.0

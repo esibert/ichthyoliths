@@ -4,8 +4,7 @@
 \alias{import_traits_csvs}
 \title{import_traits_csvs}
 \usage{
-import_traits_csvs(csvname = "Trait*", csvpath = ".", recurs = T,
-  ...)
+import_traits_csvs(csvname = "Trait*", csvpath = ".", recurs = T, ...)
 }
 \arguments{
 \item{csvname}{a regular expression, Wildcard search term to find all

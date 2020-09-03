@@ -4,8 +4,17 @@
 \alias{distances_clust}
 \title{distances_clust}
 \usage{
-distances_clust(morph, traits, weights, morphCols, traitsStartCol, IDCol,
-  subsetWeights, contTraits = FALSE, coresFree = 2)
+distances_clust(
+  morph,
+  traits,
+  weights,
+  morphCols,
+  traitsStartCol,
+  IDCol,
+  subsetWeights,
+  contTraits = FALSE,
+  coresFree = 2
+)
 }
 \arguments{
 \item{morph}{a data frame with (at least) columns for unique tooth identifiers
