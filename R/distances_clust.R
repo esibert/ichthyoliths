@@ -80,6 +80,9 @@ distances_clust<-function(morph, traits, weights, morphCols, traitsStartCol, IDC
    # Create matrix of just traits, so that names can be maintained in the function properly
    morph.mat<-morph[,morphCols]  # startCol is the column to start pulling morphological trait data from
 
+   # Coerce morph.mat to numeric (Shouldn't really be necessary but sometimes text-->character instead of number happens)
+   morph.mat <- apply(morph.mat, 2, as.numeric)
+
    # Create sets of pairs:
    species<-c(1:length(morph.mat[,1])) #doesn't matter what column this calls, b/c just giving integers 1 to n
    combs.rows<-t(combn(species,2)) #2xn Matrix of all possible pairwise combinations of species
