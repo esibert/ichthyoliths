@@ -5,11 +5,17 @@
 #' The ichthyolith package provides functions to define trait disparity matrices,
 #' calculate tooth disparity, and create range charts and figures through time.
 #'
-#' The disparity method used in this version of the ichthyoliths package (0.0.0.9000)
-#' is described in detail in the submitted manuscript: "A framework for
-#' quantifying morphological variation in microfossil fish teeth and associated
-#' R package, ichthyoliths" by Elizabeth Sibert, Matt Friedman, Pincelli Hull,
-#' and Richard Norris. For details please contact Elizabeth Sibert \email{esibert@@fas.harvard.edu}.
+#' The disparity method used in this version of the ichthyoliths package (0.4, to
+#' be renamed 1.0 upon publication) is described in detail in
+#'
+#' The original version of the code (v0.1) is described in detail in
+#' Sibert et al (2018), "Two pulses of morphological diversification in Pacific
+#' pelagic fishes following the Cretaceous–Palaeogene mass extinction" (2018)
+#' Proceedings of the Royal Society B: Biological Sciences
+#' http://doi.org/10.1098/rspb.2018.1194.
+#'
+#'
+#' For details and questions please contact Elizabeth Sibert \email{esibert@@whoi.edu}.
 #'
 #' At the heart of the ichthyoliths package are functions to calculate
 #' tooth disparity ichthyoliths included in the analysis. They take advantage

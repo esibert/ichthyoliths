@@ -144,7 +144,7 @@ rangechart <- function(counts, ages = NULL, taxa = NULL, tax.cat = NULL, reorder
                        col.points = 'gray70', cols.vec = NULL,
                         pch.points = 16, pch.vec = NULL,
                         cex.points = 1, largesize = 1,
-                        xaxis.labels = c('names', 'numeric', 'alphanum'),
+                        xaxis.labels = c('names', 'numeric', 'alphanum', 'none'),
                        print.xaxis = FALSE,
                        xlab = '', ylab = 'Age (Ma)', ...) {
 
@@ -282,6 +282,7 @@ rangechart <- function(counts, ages = NULL, taxa = NULL, tax.cat = NULL, reorder
    if(xaxis.labels == 'names') { xaxis.lab <- taxa }
    if(xaxis.labels == 'numeric') { xaxis.lab <- 1:length(taxa) }
    if(xaxis.labels == 'alphanum') { xaxis.lab <- match(taxa, original.taxa) }
+   if(xaxis.labels == 'none') {xaxis.lab <- NULL}
 
    ## colors of points
    if(missing(cols.vec)) {cols.vec = 'gray'}
