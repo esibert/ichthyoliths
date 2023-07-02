@@ -6,6 +6,16 @@
 #                                            #
 ##############################################
 
+##### v0.4 - July 2023 #####
+## Major overhaul of coding system
+# Updated to include both denticles and teeth as separate versions and objects
+
+# # Denticles objects:
+# denticle_traits_v0.4 <- import_traits_csvs(csvname = "Trait*", csvpath = "data/v0.4/traitCSV_denticles_v0.4/", recurs = F)
+# save(denticle_traits_v0.4, file = 'data/denticle_traits_v0.4.RData')
+# denticle_weights_v0.4 <- c(2,1,1,1,1,1,1,1,0.5,0.5,0.5,2,1,1,1,1,1,0.5,0.5,1,1,1,1,1,1,1,1,1,1,1)
+# save(denticle_weights_v0.4, file = 'data/denticle_weights_v0.4.RData') #Example save
+
 ##### v0.2.2 - August 2020 #####
 # Added range extension option for rangechart function
 

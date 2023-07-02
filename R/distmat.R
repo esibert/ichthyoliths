@@ -23,14 +23,14 @@ distmat<-function(distpairs, type='avg') {
 
    if(type=='avg') {
       for (i in 1:length(distpairs[,3])) {
-         dat<-as.numeric(distpairs[i,])        # call the first row of the data frame and coerce it into numeric values
+         dat<-as.numeric(distpairs[i,1:7])        # call the first row of the data frame and coerce it into numeric values
          dist.mat[dat[1], dat[2]]<-dat[6] # 6th column is dist.avg; [1] and [2] are matrix locations
          dist.mat[dat[2], dat[1]]<-dat[6]
       }
    }
    else if(type == 'sum') {
       for (i in 1:length(distpairs[,3])) {
-         dat<-as.numeric(distpairs[i,])        # call the first row of the data frame and coerce it into numeric values
+         dat<-as.numeric(distpairs[i,1:7])        # call the first row of the data frame and coerce it into numeric values
          dist.mat[dat[1], dat[2]]<-dat[5] # 5th column is dist.sum; [1] and [2] are matrix locations
          dist.mat[dat[2], dat[1]]<-dat[5]
       }
