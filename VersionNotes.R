@@ -16,6 +16,12 @@
 # denticle_weights_v0.4 <- c(2,1,1,1,1,1,1,1,0.5,0.5,0.5,2,1,1,1,1,1,0.5,0.5,1,1,1,1,1,1,1,1,1,1,1)
 # save(denticle_weights_v0.4, file = 'data/denticle_weights_v0.4.RData') #Example save
 
+# Updated distances_clust function to coerce any morphological datasets into numeric values prior to processing
+#     This was necessary because of a quirk of google docs formatting
+# Also fixed an inefficiency with the distmat function that previously coerced two text columns into numeric values and threw errors
+#     These text columns (names of the objects) were not required for creating the distance matrix, and therefore are removed
+#     from the processing.
+
 ##### v0.2.2 - August 2020 #####
 # Added range extension option for rangechart function
 

@@ -27,5 +27,6 @@
 #' @name ichthyoliths
 #'
 #' @import doParallel
+#' @import viridis
 #'
 NULL
