@@ -2,11 +2,9 @@
 
 export(Plot_ConvexHull)
 export(distances_clust)
-export(distances_no_clust)
 export(distmat)
 export(import_traits_csvs)
 export(rangechart)
-export(toothdat_cleanup)
 import(doParallel)
 import(foreach)
 import(iterators)

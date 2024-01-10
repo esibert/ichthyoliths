@@ -6,6 +6,11 @@
 #                                            #
 ##############################################
 
+##### v0.4.1 - Jan 2024 #####
+# Added Tooth matrices and weights for v0.4
+# Cleaned up old functions
+
+
 ##### v0.4 - July 2023 #####
 ## Major overhaul of coding system
 # Updated to include both denticles and teeth as separate versions and objects

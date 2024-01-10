@@ -32,7 +32,7 @@ rangechart(
   pch.vec = NULL,
   cex.points = 1,
   largesize = 1,
-  xaxis.labels = c("names", "numeric", "alphanum"),
+  xaxis.labels = c("names", "numeric", "alphanum", "none"),
   print.xaxis = FALSE,
   xlab = "",
   ylab = "Age (Ma)",
