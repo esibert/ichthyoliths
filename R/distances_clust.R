@@ -27,10 +27,15 @@
 #'
 #' @param morphCols a vetor stating the columns with morphometric data to pull for analysis.
 #' This can be a continous list (e.g.c(1:9) to take columns 1-9 as morphometric data) or it
-#' can be a subset (e.g. c(1:3, 5, 7:9) to exclude columns 6 and 8).
+#' can be a subset (e.g. c(1:3, 5, 7:9) to exclude columns 6 and 8). It can be any range
+#' as long as the columns exist within the morph matrix (e.g. c(35:58)).
 #'
 #' @param traitsStartCol is the numeric value of the column in the morph data frame
-#' that matches to the first character in the traits list of connectivity matrices.
+#' that matches to the first character in the traits list of connectivity matrices. In most
+#' cases, this will be the value of the morphCols object, however if you are running an
+#' analysis which does not use the first trait (e.g. omits Trait A1 from the morphCols list),
+#' you must specify the column of the morph matrix that is Trait A1 here. If left blank,
+#' this defaults to the first value of morphCols.
 #'
 #' @param IDCol is a numeric value referring to the column in the morph data frame which
 #' contains the unique identifiers for each object.
