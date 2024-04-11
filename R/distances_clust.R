@@ -43,7 +43,7 @@
 #' @param subsetWeights is a logical for whether the weights vector applies to the whole
 #' list of traits you have fed into the function (FALSE) or just the subset called by
 #' the morphCols vector (TRUE) from a larger list of weights that apply to all characters
-#' even if not all of them are included in the morphCols vector.
+#' even if not all of them are included in the morphCols vector. Defaults to FALSE.
 #'
 #' @param conTraits ######### ideally a character vector containing the column names
 #' of the continuous traits to consider, or a numeric vector containing the column numbers.
@@ -81,6 +81,11 @@ distances_clust<-function(morph, traits, weights, morphCols, traitsStartCol, IDC
    if(missing(traitsStartCol)) {
       traitsStartCol <- morphCols[1]
    }
+
+   if(missing(subsetWeights)) {
+      subsetWeights <- FALSE
+   }
+
 
    # Create matrix of just traits, so that names can be maintained in the function properly
    morph.mat<-morph[,morphCols]  # startCol is the column to start pulling morphological trait data from
