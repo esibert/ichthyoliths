@@ -1,6 +1,6 @@
 #' ichthyoliths
 #'
-#' A package for calculating morphological disparity of fish teeth
+#' A package for calculating morphological disparity of ichthyoliths (fish teeth and shark scales)
 #'
 #' The ichthyolith package provides functions to define trait disparity matrices,
 #' calculate tooth disparity, and create range charts and figures through time.
@@ -22,7 +22,7 @@
 #' of parallel computing, as pairwise-comparisons can grow quickly.This relies
 #' on the package doParallel, and uses a foreach loop.
 #'
-#' @docType package
+#' @docType _PACKAGE
 #'
 #' @name ichthyoliths
 #'
