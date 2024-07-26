@@ -2,6 +2,7 @@
 % Please edit documentation in R/ichthyoliths.R
 \docType{_PACKAGE}
 \name{ichthyoliths}
+\alias{ichthyoliths-package}
 \alias{ichthyoliths}
 \title{ichthyoliths}
 \description{
@@ -27,4 +28,16 @@ At the heart of the ichthyoliths package are functions to calculate
 tooth disparity ichthyoliths included in the analysis. They take advantage
 of parallel computing, as pairwise-comparisons can grow quickly.This relies
 on the package doParallel, and uses a foreach loop.
+}
+\seealso{
+Useful links:
+\itemize{
+  \item \url{https://github.com/esibert/ichthyoliths}
+  \item Report bugs at \url{https://github.com/esibert/ichthyoliths/issues}
+}
+
+}
+\author{
+\strong{Maintainer}: Elizabeth Sibert \email{esibert@whoi.edu}
+
 }
