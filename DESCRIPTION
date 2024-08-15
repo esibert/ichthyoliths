@@ -1,14 +1,12 @@
 Package: ichthyoliths
 Type: Package
 Title: Analyze Morphological Disparity of Ichthyoliths
-Version: 0.4.0
+Version: 0.5.0
 Author: Elizabeth Sibert
-Maintainer: Elizabeth Sibert <esibert@fas.harvard.edu>
+Maintainer: Elizabeth Sibert <esibert@whoi.edu>
 Description: This package uses quantative ichthyolith morphological 
-    characters and states as described initially in Sibert et al (submitted)
-    and is currently using character/state matrices as described in the
-    continually updated version of the ichthyolith morphological framework,
-    available at elizabethsibert.com/ichthyoliths, last updated on 6/25/2023.
+    characters and states as described in a pair of manuscripts, one for teeth 
+    and one for denticles, last updated on 8/15/2024.
 License: CC0
 Encoding: UTF-8
 LazyData: true

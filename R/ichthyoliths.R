@@ -5,8 +5,9 @@
 #' The ichthyolith package provides functions to define trait disparity matrices,
 #' calculate tooth disparity, and create range charts and figures through time.
 #'
-#' The disparity method used in this version of the ichthyoliths package (0.4, to
-#' be renamed 1.0 upon publication) is described in detail in
+#' The disparity method used in this version of the ichthyoliths package (0.5, to
+#' be renamed 1.0 upon publication) is described in detail in a pair of manuscripts
+#' currently under review, which will be linked here upon publication.
 #'
 #' The original version of the code (v0.1) is described in detail in
 #' Sibert et al (2018), "Two pulses of morphological diversification in Pacific
