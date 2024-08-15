@@ -6,6 +6,22 @@
 #                                            #
 ##############################################
 
+##### v0.5 - Summer 2024 #####
+# Major overhaul to denticle code, included rewrites of character groups B, C, I, J, and N to better accommodate newly discovered morphologies.
+# Major overhaul to tooth code, added character states to include blade features and incorporate additional multi-cuspate tooth characteristics.
+# Developed vignettes for publication of both tooth and denticle morph manuscripts
+
+# ##  Denticle Objects:
+# denticle_traits_v0.5 <- import_traits_csvs(csvname = "Trait*", csvpath = "data/v0.5/traitCSV_denticles_v0.5/", recurs = F)
+# save(denticle_traits_v0.5, file = 'data/denticle_traits_v0.5.RData')
+#
+# denticle_weights_v0.5 <- c(2,0.5,1,1,1,1,1,1,1,1,0.5,0.5,0.5,2,1,1,1,0.5,0.5,0.5,0.5,0.5,0.5,1,0.5,0.5,0.5,0.5,0.5,1,0.5,0.5,0.5,1,0.5,0.5,1,1,1,1,1,1,1,1,1,1)
+# names(denticle_weights_v0.5) <- names(denticle_traits_v0.5)
+# save(denticle_weights_v0.5, file = 'data/denticle_weights_v0.5.RData')
+
+## Tooth Objects
+
+
 ##### v0.4.1 - Jan 2024 #####
 # Added Tooth matrices and weights for v0.4
 # Cleaned up old functions

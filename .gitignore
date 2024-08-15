@@ -6,13 +6,12 @@
 # testing and setup files
 ichthyoliths.Rproj
 testing.R
-R/ichthyoliths.R
-man/ichthyoliths.Rd
+# R/ichthyoliths.R
+# man/ichthyoliths.Rd
 denticles_scratch.R
-example_code/Denticle_v0.4_Testing.csv
-example_code/Nick_test.csv
-example_code/examples.R
+*test_code*
 
 # old versions of code and manuals
 R/old_function_versions
 readme_v0.0.Rmd
+readme_v0.4.Rmd
