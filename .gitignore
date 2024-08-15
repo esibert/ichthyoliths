@@ -10,6 +10,7 @@ testing.R
 # man/ichthyoliths.Rd
 denticles_scratch.R
 *test_code*
+example_code/.Rhistory
 
 # old versions of code and manuals
 R/old_function_versions

@@ -12,9 +12,9 @@
 ##############################################
 
 
-# writeFile <- 'pdf'
+ writeFile <- 'pdf'
 # writeFile <- 'jpg'
-writeFile <- 'off'
+# writeFile <- 'off'
 
 ## Graphical Parameters
 fig.dims <- c(10, 4)
