@@ -1,26 +1,20 @@
 ---
 title: "Readme"
 author: "Elizabeth Sibert"
-date: "June 13, 2023"
+date: "May 9, 2019"
 output: html_document
 ---
 
-Welcome to the "ichthyoliths" package, A package for calculating morphological disparity of fish teeth and denticles. At the current time (June 2023), the default version for tooth morphometrics is at v0.4 and denticles is at v0.2. Upon publication, both tooth and denticle version numbers will be updated to v1.0. Further updates will be documented accordingly. 
+Welcome to the "ichthyoliths" package, A package for calculating morphological disparity of fish teeth (v0.1 and v0.2) and hopefully in the future, also calculating morphological disparity of denticles (v1.0 and above?). 
 
-For details and help, please contact Elizabeth Sibert \email{esibert@@whoi.edu}.
+For details and help, please contact Elizabeth Sibert \email{esibert@@fas.harvard.edu}.
 
-*****PLEASE NOTE: THIS FILE IS WILDLY OUT OF DATE SORRY, everything below is from 2018. *****
-
-For details on the tooth code, please see: 
 This package is described in detail in the in-prep manuscript (currently hosted here on GitHub) "A morphological character coding scheme for quantifying ichthyolith disparity and its associated R package ichthyoliths", by Elizabeth Sibert and Monica Marion 
 
-For details on the denticle code, please see: 
-By Leah Rubin and Elizabeth Sibert (etc)
-
-Version information: 
-The codeing system here is based off of the code developed for analyzing fish tooth morphology, first used Sibert et al (2018), "Two pulses of morphological diversification in Pacific pelagic fishes following the Cretaceous–Palaeogene mass extinction" (2018) Proceedings of the Royal Society B: Biological Sciences http://doi.org/10.1098/rspb.2018.1194. If you are looking for the code for that manuscript, please see http://github.com/esibert/toothmorph. The version of tooth code from the 2018 paper is preserved as toothv0.1 in this package. Internal updates v0.2 and v0.3 are unpublished, and the current version is toothv0.4. It will be updated to toothv1.0 upon final publication. The update from v0.4 to v1.0 is susbstantial: while original versions relied solely on a numerical coding scheme, v1.0 also considers a verbal, keyword-based coding system which changed the order and nature of many characters. 
+It is based off of the code developed for analyzing fish tooth morphology, first used Sibert et al (2018), "Two pulses of morphological diversification in Pacific pelagic fishes following the Cretaceous–Palaeogene mass extinction" (2018) Proceedings of the Royal Society B: Biological Sciences http://doi.org/10.1098/rspb.2018.1194. If you are looking for the code for that manuscript, please see http://github.com/esibert/toothmorph. 
 
 
+*****PLEASE NOTE: THIS FILE IS WILDLY OUT OF DATE SORRY. *****
 Everything below this is from a much earlier version of the package (v0.0) and is in the process of being updated. In the mean time, please see the 'help' documentation for each function. (5/9/2019)
 
 

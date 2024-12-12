@@ -1,110 +1,19 @@
 ---
 title: "Readme"
 author: "Elizabeth Sibert"
-date: "May 9, 2019"
+date: "October 2024"
 output: html_document
 ---
 
-Welcome to the "ichthyoliths" package, A package for calculating morphological disparity of fish teeth (v0.1 and v0.2) and hopefully in the future, also calculating morphological disparity of denticles (v1.0 and above?). 
+Welcome to the "ichthyoliths" package, A package for calculating morphological disparity of fish teeth and denticles. At the current time (June 2023), the default version for tooth morphometrics is at v0.4 and denticles is at v0.5. Upon publication, both tooth and denticle version numbers will be updated to v1.0. Further updates will be documented accordingly. 
 
-For details and help, please contact Elizabeth Sibert \email{esibert@@fas.harvard.edu}.
+To download and use the R package, please use
+devtools::install_github('esibert/ichthyoliths')
 
-This package is described in detail in the in-prep manuscript (currently hosted here on GitHub) "A morphological character coding scheme for quantifying ichthyolith disparity and its associated R package ichthyoliths", by Elizabeth Sibert and Monica Marion 
+All functions have extensive help documentation. 
 
-It is based off of the code developed for analyzing fish tooth morphology, first used Sibert et al (2018), "Two pulses of morphological diversification in Pacific pelagic fishes following the Cretaceous–Palaeogene mass extinction" (2018) Proceedings of the Royal Society B: Biological Sciences http://doi.org/10.1098/rspb.2018.1194. If you are looking for the code for that manuscript, please see http://github.com/esibert/toothmorph. 
+For details, help, and bug reports, please contact Elizabeth Sibert \email{esibert@@whoi.edu}.
 
-
-*****PLEASE NOTE: THIS FILE IS WILDLY OUT OF DATE SORRY. *****
-Everything below this is from a much earlier version of the package (v0.0) and is in the process of being updated. In the mean time, please see the 'help' documentation for each function. (5/9/2019)
-
-
-The ichthyolith package provides functions to define trait disparity matrices,
-calculate tooth disparity, and create range charts and figures through time.
-
-At the heart of the ichthyoliths package are functions to calculate
-tooth disparity ichthyoliths included in the analysis. They take advantage
-of parallel computing, as pairwise-comparisons can grow quickly.This relies
-on the package doParallel, and uses a foreach loop.
-
-This file includes information for the functions written for Tooth Morphology analyses, as well as examples of their usage. It includes: 
-
-import_traits_csvs
-toothdat.cleanup
-distances_clust and distances_no_clust
-distmat
-
-It requires the following packages: 
-```{r}
-library(doParallel)
-```
-
-
-1) import_traits_csvs(): finds all the Trait.csv distance matrices for calculating morphological distance between traits.  
-
-2) toothdat.cleanup(toothdat): Call in and clean up the morphological variation dataset. This function was written to work explicitly with the sort of data I generate. The code for these characters and traits is found in Sibert et al (2017ish) "Two pulses of origination in Pacific pelagic fish following the Cretaceous-Paleogene Mass Extinction". 
-
-toothdat.cleanup(toothdat, fix_dat=FALSE) makes a data frame used for calculating distances between teeth by doing the following:
--Eliminates all non-teeth (all objects classed as Trait A: states 2, 3, or 4) 
--Eliminates all teeth with preservation too poor to yield good data, (Triat B: 4)
--Eliminates particularly tiny teeth (<100um), which should have passed through a 106um sieve.
--Re-adds any teeth with the 99 aspect ratio dummy variable, which was used to designate teeth that were not measured properly by the AutoMorph software (>100um) and have a 0 width value, which would have caused them to be eliminated by the size filter. Once these teeth are added back to the dataset, their AR value is replaced by 0
-
--The fix_dat argument is used to give non-zero values to characters where I coded a 0 for absence and a 1 for presence (e.g. where a 0-value should not discount the character). In the published figure and character code, these two traits (K1 and O) are coded as 1 (absent) and 2 (present). This argument defaults to false, but gives the option to fix particular characters. 
-
--The sortby argument defaults to an age/object code that should order the teeth from youngest to oldest by object number, for easy identification and further manipulation. Options include:
-     'age-obj' (sort by object ID that includes sample ID (age) and object ID)
-     'age' - sort by ageID
-     'morph' - sort by morphotype ID by row
-     'original' - return to original spreadsheet order
-
-
-Note that Trait C (the first 'morphology' character) is in column #7, which is significant for the distances_clust() function.
-
-3) distances_clust(morph, traits, weights): Calculate pairwise distances between each pair of teeth in the analysis. 
-
-Input is a data frame of the form returned by toothdat_cleanup.
-Output is a dataframe of each pairwise comparison with the following columns: 
-"1" and "2" - the combination of teeth being considered
-"ToothA" and "ToothB", - the row number for each tooth from the original input dataset
-"dist.sum" - the summed distance between the two teeth 
-"dist.avg" - the averaged distance between the two teeth 
-"traits.length" - the number of traits actually considered in the comparison
-"objID.A" and "objID.B" - the unique identifiers for each tooth considered.
-
-4) distmat(distpairs, type='avg'): coerces output from the distpairs data frame from distances_clust() into a distance matrix format for further analysis. type
-
-A workflow for using these functions, using the "morphotypes" dataset as an example. Note that this will take considerable computing resoruces as you add additional teeth to the dataset, so the morphotypes dataset is used here as an example, because it only includes 136 objects, and thus the analyses are faster. 
-
-```{r}
-
-## Define traits, weights, and morphdat
-traits<-data(traits)
-weights<-data(weights)
-names(weights)<-c(names(traits), 'AR', 'LEN', 'WID') #not strictly necessary, but nice to check your work. 
-
-toothdat<-read.csv('csv/Morphotypes.csv')
-morphdat<-toothdat.cleanup(toothdat, fix_dat = TRUE, sortby = 'morph') #fix_dat=TRUE in this case, based on original data. Since this dataset is age-less (just the tooth morphotypes), sortby is 'morph' not 'age-obj' or 'age'. 'original' could also work in this case. 
-rm(toothdat) #clean up
-
-## calculate distances and save output (!)
-distpairs<-distances_clust(morph=morphdat, traits = traits, weights=weights)
-write.csv(distpairs, 'csv/pairwisedist_morph.csv')
-distmat<-distmat(distpairs, type='avg') #don't need to include tye type, because that is the default of the function, but it's useful for show. 
-write.csv(distmat, 'csv/distmat_morph.csv')
-
-
-## alternatively, read in .csv files you've written previously...
-# distpairs
-distpairs<-read.csv('csv/pairwisedist_morph.csv', header=T)
-distpairs<-distpairs[,2:length(distpairs)] #remove extra column of row list
-
-# distmat (needs some post-processing to coerce properly)
-distmat<-read.csv('csv/distmat_morph.csv', header=T)
-tooth.ID<-distmat[,1]
-distmat<-distmat[,2:length(distmat)]
-names(distmat)<-tooth.ID
-rownames(distmat)<-tooth.ID
-distmat<-as.matrix(distmat)
-rm(tooth.ID) #clean up
+This ReadMe is somewhat out of date, and will be updated upon publication of the tooth and denticle morphometrics papers in early 2025. In the interim, please see the dentmorph_v0.5_Example_code.R in the "example_code" directory for a tutorial on how to use the R Package. 
 
 ```

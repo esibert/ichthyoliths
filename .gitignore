@@ -11,8 +11,10 @@ testing.R
 denticles_scratch.R
 *test_code*
 example_code/.Rhistory
+example_code
 
 # old versions of code and manuals
 R/old_function_versions
 readme_v0.0.Rmd
+readme_v0.1.Rmd
 readme_v0.4.Rmd

@@ -279,14 +279,14 @@ for(i in 1:length(unique(dentdat$F1.1))) {
 # names(weightset) <- names(traitset) #assign names to the weights vector to confirm correct order
 
 
-##### Find coding errors #####
-# Troubleshooting: If you have any character state values that are out of bounds
-# (e.g. coded an "8" where there are only 6 character states), the distances_clust
-# function returns an NA value.
-# Since implementing the dropdown-menu based coding this has not been an issue, but this is how we
-# used to identify coding errors
-df.na <- subset(dent_distances.morphotypes, is.na(dent_distances.morphotypes$dist.sum))
-
-#list of objects that broke the function (if any): (I often use column 3, but the object IDs (column 8) are also good for this);
-# Correct issues and re-run the dat_distances function until this returns an empty object.
-unique(df.na[,8])
+# ##### Find coding errors #####
+# # Troubleshooting: If you have any character state values that are out of bounds
+# # (e.g. coded an "8" where there are only 6 character states), the distances_clust
+# # function returns an NA value.
+# # Since implementing the dropdown-menu based coding this has not been an issue, but this is how we
+# # used to identify coding errors
+# df.na <- subset(dent_distances.morphotypes, is.na(dent_distances.morphotypes$dist.sum))
+#
+# #list of objects that broke the function (if any): (I often use column 3, but the object IDs (column 8) are also good for this);
+# # Correct issues and re-run the dat_distances function until this returns an empty object.
+# unique(df.na[,8])
