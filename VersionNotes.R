@@ -6,7 +6,39 @@
 #                                            #
 ##############################################
 
-##### v0.5 - Summer 2024 #####
+##### Tooth v0.5 - May 2025 #####
+# Substantial update to code, updates include: code for multi-cusp teeth, expansion of options for blades, and additional small changes to harmonize observed coding issues.
+
+# tooth_traits_v0.5 <- import_traits_csvs(csvname = "Trait*", csvpath = "data/v0.5/traitCSV_teeth_v0.5/", recurs = F)
+# save(tooth_traits_v0.5, file = 'data/tooth_traits_v0.5.RData')
+#
+# tooth_weights_v0.5 <- c(
+#    1, 1, 1, 0.5, #A
+#    1, 1, 0.5, #B
+#    1, 0.5, 0.5, #C
+#    1, 1, #D
+#    1, 0.5, 0.5, 0.5, 0.5, 0.5, 0.5, 0.5, 0.5, #E
+#    1, 0.5, 0.5, 0.5, 0.5, 0.5, 0.5, 0.5, #F
+#    0.5, 0.5, 0.5, 0.5, 0.5, 0.5, 0.5, #G
+#    1, 0.5, 0.5, 0.5, #H
+#    1, 0.5, 0.5, 0.5, #I
+#    1, 0.5, 0.5, 0.5, #J
+#    1, #K
+#    0.5, 0.5, #L
+#    1, 1 #M
+# )
+# names(tooth_weights_v0.5) <- names(tooth_traits_v0.5)
+# save(tooth_weights_v0.5, file = 'data/tooth_weights_v0.5.RData')
+
+
+##### Tooth v0.4.1 - March 2024 #####
+# Update to include 'multi-pronged' tooth option in trait D2.
+# tooth_traits_v0.4.1 <- import_traits_csvs(csvname = "Trait*", csvpath = "data/v0.4/traitCSV_teeth_v0.4.1/", recurs = F)
+# # save with new versions
+# save(tooth_traits_v0.4.1, file = 'data/tooth_traits_v0.4.1.RData')
+
+
+##### Denticle v0.5 - Summer 2024 #####
 # Major overhaul to denticle code, included rewrites of character groups B, C, I, J, and N to better accommodate newly discovered morphologies.
 # Major overhaul to tooth code, added character states to include blade features and incorporate additional multi-cuspate tooth characteristics.
 # Developed vignettes for publication of both tooth and denticle morph manuscripts
