@@ -180,17 +180,26 @@ write.csv(dentdat, file = 'example_code/dentmorph_ordination.csv', row.names = F
 
 ##### Example Plots: Ridge system type #####
 
+### Code for plot using a loop to objects by their character state(s) ###
+## Example using Ridge System Type, Trait F1:
+
 # Graphical Parameters
 cols <- c('firebrick', 'goldenrod1', 'green2', 'purple', 'blue', 'gray70')
 pchs <- c(21, 24, 22, 23, 8, 25)
 
-##### Plot by coercing code data into factor #####
-plot(dentdat$MDS1, dentdat$MDS2, cex = 1.2,
-     col = cols[as.factor(dentdat$F1)], bg = cols[as.factor(dentdat$F1)],
-     pch = pchs[as.factor(dentdat$F1)],
+# Blank plot
+plot(dentdat$MDS1, dentdat$MDS2, type = 'n',
      xlab = 'MDS1', ylab = 'MDS2')
-# Ridge system type is trait F1.
-legend('topleft', legend = c('smooth', 'linear','geometric', 'meandering', 'spine', 'Branching'), pch = 16, cex = 1, col = cols)
+# Loop to add points from each ridge system type; Includes demo of using convexhull
+for(i in 1:max(dentdat$F1.1)) {
+   points(subset(dentdat, dentdat$F1.1 == i, select = c('MDS1', 'MDS2')),
+          col = cols[i], bg = cols[i], pch = pchs[i])
+   Plot_ConvexHull(subset(dentdat, dentdat$F1.1 == i, select = c('MDS1', 'MDS2')),
+                   lcolor = cols[i], shade = TRUE, scolor = cols[i], alpha.f = 0.1)
+}
+# legend
+legend('bottomleft', legend = c('smooth', 'linear','geometric', 'meandering', 'spine', 'Branching'), pch = pchs, cex = 1, col = cols, pt.bg = cols)
+
 
 
 ##### 3D Plot #####
@@ -200,19 +209,7 @@ legend('topleft', legend = c('smooth', 'linear','geometric', 'meandering', 'spin
 #        col = cols[as.factor(dentdat$F1)], pch = 16, radius = 0.05, type = 's')
 
 
-##### Code for plot using a loop to objects by their character state(s) #####
-# Blank plot
-plot(dentdat$MDS1, dentdat$MDS2, type = 'n',
-     xlab = 'MDS1', ylab = 'MDS2')
-for(i in 1:length(unique(dentdat$F1.1))) {
-   points(subset(dentdat, dentdat$F1.1 == i, select = c('MDS1', 'MDS2')),
-          col = cols[i], bg = cols[i], pch = pchs[i])
-}
-# legend
-legend('topleft', legend = c('smooth', 'linear','geometric', 'meandering', 'spine', 'Branching'), pch = pchs, cex = 1, col = cols, pt.bg = cols)
 
-
-##### Figure for Manuscript #####
 
 ##### Figure for Manuscript #####
 par(mfrow = c(1,3), xpd = NA, oma = c(1, 0, 1, 0))
@@ -269,6 +266,17 @@ for(i in 1:length(unique(dentdat$F1.1))) {
 ###########################################
 #           EXTRA CODE                    #
 ###########################################
+
+
+##### Plot by coercing code data into factor #####
+plot(dentdat$MDS1, dentdat$MDS2, cex = 1.2,
+     col = cols[as.factor(dentdat$F1)], bg = cols[as.factor(dentdat$F1)],
+     pch = pchs[as.factor(dentdat$F1)],
+     xlab = 'MDS1', ylab = 'MDS2')
+# Ridge system type is trait F1.
+legend('topleft', legend = c('smooth', 'linear','geometric', 'meandering', 'spine', 'Branching'), pch = 16, cex = 1, col = cols)
+
+
 
 ##### Manually import trait CSV files and define weights #####
 # # Traits:
