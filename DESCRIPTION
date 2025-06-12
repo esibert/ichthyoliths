@@ -6,7 +6,7 @@ Author: Elizabeth Sibert
 Maintainer: Elizabeth Sibert <esibert@whoi.edu>
 Description: This package uses quantative ichthyolith morphological 
     characters and states as described in a pair of manuscripts, one for teeth 
-    and one for denticles, last updated on 8/15/2024.
+    and one for denticles, last updated on 6/12/2025.
 License: CC0
 Encoding: UTF-8
 LazyData: true

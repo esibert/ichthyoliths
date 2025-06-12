@@ -85,6 +85,10 @@ library(rgl) #for 3D plotting - not necessary for functionality of the package, 
 # If your dataset is directly from a file using our google drive template, skip the first line
 dentdat <- read.csv('example_code/dentmorph_V0.5_Morphotypes.csv', skip = 1, header = TRUE, blank.lines.skip = TRUE)
 
+# Validate the dataset to confirm all denticles are coded within bounds for each character:
+invalid.df <- validate_code(dentdat, code.version = "denticle_v0.5")
+# invalid.df should have length 0. If there are issues, correct them in the spreadsheet and re-download.
+
 ## Figure out which columns hold the numerical data for the coded denticles. This will likely be the
 # last 46 columns of the spreadsheet if you are using our google drive template.
 # To confirm,
