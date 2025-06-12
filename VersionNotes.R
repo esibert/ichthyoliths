@@ -6,6 +6,17 @@
 #                                            #
 ##############################################
 
+##### Validation Tools - June 2025 #####
+# This version contains no changes to the morphological character codes (hence v0.5.0),
+# But does contain a new function, validate_code.R, which checks whether there are issues
+# with the coded tooth and denticle values,
+
+# validate_code function checks for errors in tooth_v0.5 and dent_v0.5.
+#  Usage:
+# invalid.df <- validate_code(tooth.df, code.version = "tooth_v0.5")
+# invalid.df <- validate_code(denticle.df, code.version = "denticle_v0.5")
+
+
 ##### Tooth v0.5 - May 2025 #####
 # Substantial update to code, updates include: code for multi-cusp teeth, expansion of options for blades, and additional small changes to harmonize observed coding issues.
 
