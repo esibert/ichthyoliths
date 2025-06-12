@@ -5,6 +5,10 @@
 #     and notes for recreating figures       #
 #              v0.5, 15 Aug 2024             #
 #                                            #
+#     Last updated 6 June 2025:              #
+#        -validate_code                      #
+#        -cleaner plotting example code      #
+#                                            #
 ##############################################
 
 # Welcome to this R script for calculating morphological disparity between
@@ -272,7 +276,7 @@ for(i in 1:length(unique(dentdat$F1.1))) {
 ###########################################
 
 
-##### Plot by coercing code data into factor #####
+##### Plot by coercing code values into factor #####
 plot(dentdat$MDS1, dentdat$MDS2, cex = 1.2,
      col = cols[as.factor(dentdat$F1)], bg = cols[as.factor(dentdat$F1)],
      pch = pchs[as.factor(dentdat$F1)],
