@@ -6,6 +6,17 @@
 #                                            #
 ##############################################
 
+##### Denticle Code v1.0 is live! - June 2025 #####
+# To go along with the formal publication of the Denticle Morphology MS,
+# denticles_v0.5 has been upgraded to denticles_v1.0.
+# There are no changes from v0.5 to v1.0, however, we feel that it is important to
+#     include a formal version update with the publication.
+
+# "Quantifying the denticle multiverse: a standardized coding system to capture three dimensional morphological variation for quantitative evolutionary and ecological studies of elasmobranch denticles",
+# Leah D Rubin, Gareth J Fraser, Molly K Gabler-Smith, George V Lauder, Whitney V Ribeiro, Diego F B Vaz, Nicholas Wallis-Mauro, Elizabeth C Sibert,
+# Integrative Organismal Biology, 2025;, obaf021,
+# https://doi.org/10.1093/iob/obaf021
+
 ##### Validation Tools - June 2025 #####
 # This version contains no changes to the morphological character codes (hence v0.5.0),
 # But does contain a new function, validate_code.R, which checks whether there are issues

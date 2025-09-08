@@ -99,9 +99,22 @@ invalid.df <- validate_code(dentdat, code.version = "denticle_v0.5")
 colnames(dentdat)
 # This displays all the columns. We want columns 57 to 100 from this spreadsheet
 
-## Which columns hold numerical coding data (e.g. A1-O10)
-full_morphcols.morpotypes <- c(57:102) #should be 46 columns
 
+## Establish the numerical values of the morphological character code:
+#     Which columns hold numerical coding data (e.g. A1-O10)?
+cols.names <- colnames(dentdat)
+code.start.col <- which(cols.names == "A1.1") #First value of code.list
+code.end.col <- which(cols.names == "O10.1") #Last value of code.list
+full_morphcols <- c(code.start.col:code.end.col) #vector of code columns only
+# full_morphcols should be 46 columns
+
+## If you didn't code values for any particular denticle, you'll need to
+#     replace the zero values with 'NA' for the distance function to run.
+#     Note that the example dataset doesn't need this step, but your own
+#     datasets, especially fossil datasets, may require it!
+
+# Replace NA values with 0 values
+dentdat[is.na(dentdat)] <- 0
 
 
 ####################################################
@@ -114,7 +127,7 @@ full_morphcols.morpotypes <- c(57:102) #should be 46 columns
 dent_distances.morphotypes <- distances_clust(morph = dentdat,
                                               traits = denticle_traits_v0.5,
                                               weights = denticle_weights_v0.5,
-                                              morphCols = full_morphcols.morpotypes,
+                                              morphCols = full_morphcols,
                                               IDCol = 1,
                                               coresFree=2)
 
@@ -134,7 +147,6 @@ dent_distances.morphotypes <- distances_clust(morph = dentdat,
 #  not well-tested, so use at your own risk.
 
 ##### Step 2b: Turn the output of the distance function into a distance matrix for ordination #####
-
 
 # make distmat
 dent.distmat.morphotypes <- distmat(dent_distances.morphotypes, type = "avg")
