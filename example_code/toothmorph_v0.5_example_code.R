@@ -1,13 +1,9 @@
 ##############################################
 #                                            #
-#     Example Code for Denticle Morphology   #
+#     Example Code for Fish Tooth Morphology #
 #     analysis, including workflow           #
 #     and notes for recreating figures       #
-#              v0.5, 15 Aug 2024             #
-#                                            #
-#     Last updated 6 June 2025:              #
-#        -validate_code                      #
-#        -cleaner plotting example code      #
+#              v0.5, Dec 2025                #
 #                                            #
 ##############################################
 
@@ -18,10 +14,14 @@
 # should be analyzed independently. You will be able to define which
 # character coding scheme you are using within the R function.
 
-# For Denticles you will use the traits and weights objects for denticles.
+# This script walks through the examples using a fossil tooth morphotype
+# dataset.
+# For an example using denticles, please see the dentmorph_v0.5_example_code.R
+
+# For teeth you will use the traits and weights objects for teeth
 # The most recent versions are
-# ichthyoliths::denticle_traits_v0.5 #trait matrices
-# ichthyoliths::denticle_weights_v0.5 #weights for each trait
+# ichthyoliths::tooth_traits_v0.5 #trait matrices
+# ichthyoliths::tooth_weights_v0.5 #weights for each trait
 
 # The morphological disparity function (distances_clust) can take a long time
 # and a lot of computing resources to run depending on the number of objects you
@@ -59,7 +59,7 @@ library(rgl) #for 3D plotting - not necessary for functionality of the package, 
 
 # # To install the ichthyoliths package from Github, run the following code:
 # library(devtools)
-# install_github('esibert/ichthyoliths', force = TRUE) #force = TRUE overwrites any prior installation
+# install_github('esibert/ichthyoliths', force = TRUE) #force = TRUE overwrites any prior installation and allows for updates
 
 ##############################################
 #                                            #
@@ -70,7 +70,7 @@ library(rgl) #for 3D plotting - not necessary for functionality of the package, 
 ##############################################
 
 ##### 1a. Define trait disparity matrices and define weights vector (or use defaults) #####
-# The package has pre-loaded the traits and weights for denticle morphology v0.4 and v0.5.
+# The package has pre-loaded the traits and weights for tooth morphology v0.1, v0.2, v0.4 and v0.5.
 # Note that for all future releases, the manuscript will specify the version used,
 # and updated versions will be added as appropriate.
 
@@ -78,43 +78,46 @@ library(rgl) #for 3D plotting - not necessary for functionality of the package, 
 # analyse an entirely different type of fossil, the way to import/organize the
 # trait CSVs is included at the end of this script.
 
-# ## Use the package-defined versions of the code (here using denticles_v0.5)
+# ## Use the package-defined versions of the code (here using teeth_v0.5)
 # you can either call this here, or you can call them directly in the distance function:
-# traitset <- ichthyoliths::denticle_traits_v0.5
-# weightset <- ichthyoliths::denticle_weights_v0.5
+# traitset <- ichthyoliths::tooth_traits_v0.5
+# weightset <- ichthyoliths::tooth_weights_v0.5
 
-##### 1b. Import coded dataset #####
+##### 1b. Import coded Morphotypes dataset #####
 
 ## Call in the dataset:
-# If your dataset is directly from a file using our google drive template, skip the first line
-dentdat <- read.csv('example_code/dentmorph_V0.5_Morphotypes.csv', skip = 1, header = TRUE, blank.lines.skip = TRUE)
+# If your dataset is directly from a file using our google drive template, skip the first two lines
+toothdat <- read.csv('example_code/toothmorph_v05_Morphotypes.csv', skip = 2, header = TRUE, blank.lines.skip = TRUE)
 
-# Validate the dataset to confirm all denticles are coded within bounds for each character:
-invalid.df <- validate_code(dentdat, code.version = "denticle_v0.5")
-# invalid.df should have length 0. If there are issues, correct them in the spreadsheet and re-download.
+# For the morphotypes dataset, the first 4 morphotypes are placeholders for generic types, and should be skipped as well.
+toothdat <- toothdat[is.na(toothdat$Z1.1) == FALSE,] #Remove the morphotypes where there is no coded value for them, here flagged as Z1.1 = NA
 
-## Figure out which columns hold the numerical data for the coded denticles. This will likely be the
-# last 46 columns of the spreadsheet if you are using our google drive template.
+## Validate the dataset to confirm all teeth are coded within bounds for each character:
+invalid.df <- validate_code(toothdat, code.version = "tooth_v0.5")
+# invalid.df should have length 0. If there are issues, they will appear here, correct them in the spreadsheet and re-download.
+
+## Figure out which columns hold the numerical data for the coded teeth This will likely be the
+# last 53 columns of the spreadsheet if you are using our google drive template.
 # To confirm,
-colnames(dentdat)
-# This displays all the columns. We want columns 57 to 100 from this spreadsheet
+colnames(toothdat)
+# This displays all the columns. We want columns 61 to 113 from this spreadsheet. See below for cleaner code to figure that out
 
 
 ## Establish the numerical values of the morphological character code:
 #     Which columns hold numerical coding data (e.g. A1-O10)?
-cols.names <- colnames(dentdat)
+cols.names <- colnames(toothdat)
 code.start.col <- which(cols.names == "A1.1") #First value of code.list
-code.end.col <- which(cols.names == "O10.1") #Last value of code.list
+code.end.col <- which(cols.names == "M2.1") #Last value of code.list
 full_morphcols <- c(code.start.col:code.end.col) #vector of code columns only
-# full_morphcols should be 46 columns
+# full_morphcols should be 53 columns
 
-## If you didn't code values for any particular denticle, you'll need to
+## If you didn't code values for any particular tooth, you'll need to
 #     replace the zero values with 'NA' for the distance function to run.
 #     Note that the example dataset doesn't need this step, but your own
 #     datasets, especially fossil datasets, may require it!
 
 # Replace NA values with 0 values
-dentdat[is.na(dentdat)] <- 0
+toothdat[is.na(toothdat)] <- 0
 
 
 ####################################################
@@ -124,12 +127,12 @@ dentdat[is.na(dentdat)] <- 0
 ####################################################
 
 #### Step 2a: run the distance function #####
-dent_distances.morphotypes <- distances_clust(morph = dentdat,
-                                              traits = denticle_traits_v0.5,
-                                              weights = denticle_weights_v0.5,
-                                              morphCols = full_morphcols,
-                                              IDCol = 1,
-                                              coresFree=2)
+tooth_distances.morphotypes <- distances_clust(morph = toothdat,
+                                               traits = tooth_traits_v0.5,
+                                               weights = tooth_weights_v0.5,
+                                               morphCols = full_morphcols,
+                                               IDCol = 1, # Morphotype  Names
+                                               coresFree=2)
 
 ### Parameter explanations:
 # morph is the coded matrix
@@ -149,13 +152,14 @@ dent_distances.morphotypes <- distances_clust(morph = dentdat,
 # Check for mis-coded values - if there are issues, you will get NA values; You'll need
 # to find them and fix them in your coded sheet and then re-run the distances function.
 # The below code helps you ID them.
-df.na <- subset(tooth.distances, is.na(tooth.distances$dist.sum))
+df.na <- subset(tooth_distances.morphotypes, is.na(tooth_distances.morphotypes$dist.sum))
 unique(df.na[,8])
 
 ##### Step 2b: Turn the output of the distance function into a distance matrix for ordination #####
 
 # make distmat
-dent.distmat.morphotypes <- distmat(dent_distances.morphotypes, type = "avg")
+tooth.distmat.morphotypes <- distmat(tooth_distances.morphotypes, type = "avg")
+#  Should be 261 x 261 elements for the 261 toothmorph morphotypes in our example dataset
 
 # The distance calculation calculates disparity using two different methods:
 #  Average disparity across all traits considered
@@ -170,10 +174,10 @@ dent.distmat.morphotypes <- distmat(dent_distances.morphotypes, type = "avg")
 
 ##### Step 2c (optional): Save the output so you don't have to re-run long disparity calculations #####
 ###  Distances calculation output dataframe
-write.csv(dent_distances.morphotypes, file = 'example_code/dent_distances.csv', row.names = FALSE)
+write.csv(tooth_distances.morphotypes, file = 'example_code/tooth_distances.csv', row.names = FALSE)
 
 ### Distance matrix
-write.csv(dent.distmat.morphotypes, file = 'example_code/dent_distmat.csv', row.names = FALSE)
+write.csv(tooth.distmat.morphotypes, file = 'example_code/tooth_distmat.csv', row.names = FALSE)
 # Note that you should also set col.names = FALSE, or remember to include skip=1
 #  when calling the distmat back in. For some reason R throws an error on my
 #  computer (but not others) when including col.names = FALSE in the write.csv command.
@@ -185,21 +189,21 @@ write.csv(dent.distmat.morphotypes, file = 'example_code/dent_distmat.csv', row.
 #                                                  #
 ####################################################
 
-################### DENTICLES ###################
+################### Teeth ###################
 # This uses the vegan package's function metaMDS for a non-metric
 #     multi-dimensional scaling calculation on a distance matrix
 #     calculated above by the Ichthyoliths package
 
-NMDS3.morphotypes <- metaMDS(dent.distmat.morphotypes, k=3, distance = "euclidean", try = 100, trymax = 100)
+NMDS3.morphotypes <- metaMDS(tooth.distmat.morphotypes, k=3, distance = "euclidean", try = 100, trymax = 100)
 
 #add ordination coordinates to morphology matrix for plotting
 # This allows you to plot based on any metadata column you have included in the original data sheet
-dentdat$MDS1 <- NMDS3.morphotypes$points[,1]
-dentdat$MDS2 <- NMDS3.morphotypes$points[,2]
-dentdat$MDS3 <- NMDS3.morphotypes$points[,3]
+toothdat$MDS1 <- NMDS3.morphotypes$points[,1]
+toothdat$MDS2 <- NMDS3.morphotypes$points[,2]
+toothdat$MDS3 <- NMDS3.morphotypes$points[,3]
 
 # Save the ordination to csv for later work
-write.csv(dentdat, file = 'example_code/dentmorph_ordination.csv', row.names = FALSE)
+write.csv(toothdat, file = 'example_code/toothmorph_ordination.csv', row.names = FALSE)
 
 ####################################################
 #                                                  #
@@ -207,112 +211,153 @@ write.csv(dentdat, file = 'example_code/dentmorph_ordination.csv', row.names = F
 #                                                  #
 ####################################################
 
-##### Example Plots: Ridge system type #####
+##### Example Plot: Base Cross Section (e.g. is it a triangle or cone?) #####
 
 ### Code for plot using a loop to objects by their character state(s) ###
-## Example using Ridge System Type, Trait F1:
+## Example using Ridge System Type, Trait D2:
+## I highly recommend including additional metadata, e.g. taxon, age, location, etc. in the toothdat data file for each tooth and using those as covariates to visualize as well - that is far more interesting!
 
 # Graphical Parameters
-cols <- c('firebrick', 'goldenrod1', 'green2', 'purple', 'blue', 'gray70')
-pchs <- c(21, 24, 22, 23, 8, 25)
+cols <- c('firebrick', 'goldenrod1', 'forestgreen', 'purple', 'blue')
+pchs <- c(21, 24, 22, 23, 8)
 
 # Blank plot
-plot(dentdat$MDS1, dentdat$MDS2, type = 'n',
-     xlab = 'MDS1', ylab = 'MDS2')
+plot(toothdat$MDS1, toothdat$MDS2, type = 'n',
+     xlab = 'MDS1', ylab = 'MDS2', axes = F)
+box()
+mtext("D2: Base Cross Section", side = 3, cex = 1.2, line = 1.5, font = 2)
 # Loop to add points from each ridge system type; Includes demo of using convexhull
-for(i in 1:max(dentdat$F1.1)) {
-   points(subset(dentdat, dentdat$F1.1 == i, select = c('MDS1', 'MDS2')),
+for(i in 1:max(toothdat$D2.1)) {
+   points(subset(toothdat, toothdat$D2.1 == i, select = c('MDS1', 'MDS2')),
           col = cols[i], bg = cols[i], pch = pchs[i])
-   Plot_ConvexHull(subset(dentdat, dentdat$F1.1 == i, select = c('MDS1', 'MDS2')),
+   Plot_ConvexHull(subset(toothdat, toothdat$D2.1 == i, select = c('MDS1', 'MDS2')),
                    lcolor = cols[i], shade = TRUE, scolor = cols[i], alpha.f = 0.1)
 }
 # legend
-legend('bottomleft', legend = c('smooth', 'linear','geometric', 'meandering', 'spine', 'Branching'), pch = pchs, cex = 1, col = cols, pt.bg = cols)
+legend('bottomleft', legend = c('Cone', 'Triangle','Rectangle', 'Multi-pronged', 'Asymmetrical'), pch = pchs, cex = 1, col = cols, pt.bg = cols)
 
 
 
 ##### 3D Plot #####
 # ## 3d Plot with RGL library, its cool to look at - and for some reason doesn't work on macs, sorry!
 # # see https://r-graph-gallery.com/3d_scatter_plot.html
-# plot3d(x = dentdat$MDS1, y = dentdat$MDS2, z = dentdat$MDS3,
-#        col = cols[as.factor(dentdat$F1)], pch = 16, radius = 0.05, type = 's')
+# plot3d(x = toothdat$MDS1, y = toothdat$MDS2, z = toothdat$MDS3,
+#        col = cols[as.factor(toothdat$A2.1)], pch = 16, radius = 0.02, type = 's')
 
 
+# Have fun exploring!
 
 
 ##### Figure for Manuscript #####
-par(mfrow = c(1,3), xpd = NA, oma = c(1, 0, 1, 0))
-# mtext("Trait F1: Ridge System Type", side = 3)
 
-## Plot 1: MDS1/MDS2 ##
-plot(dentdat$MDS1, dentdat$MDS2, type = 'n',
+## Graphical Parameters
+fig.dims <- c(11, 10)
+cols <- c('firebrick', 'goldenrod1', 'forestgreen', 'purple', 'blue', 'gray70')
+pchs <- c(21, 24, 22, 23, 8, 25)
+
+# Set up the plotting region
+par(mfrow = c(2,2), oma = c(1, 0, 1, 0), mar = c(2,2,2,1))
+
+## Plot 1: Tooth Depth (A2) ##
+plot(toothdat$MDS1, toothdat$MDS2, type = 'n',
      xlab = '', ylab = '', axes = F)
 box()
-mtext('MDS1', side = 1, line = 1)
-mtext('MDS2', side = 2, line = 1)
-mtext('MDS1 / MDS2', side = 3, line = 0.5, font = 2)
-for(i in 1:length(unique(dentdat$F1.1))) {
-   points(subset(dentdat, dentdat$F1.1 == i, select = c('MDS1', 'MDS2')),
+mtext('MDS1', side = 1, line = 0.5)
+mtext('MDS2', side = 2, line = 0.5)
+mtext('Tooth Depth (A2)', side = 3, line = 0.5, font = 2, cex = 1.2)
+for(i in 1:length(unique(toothdat$A2.1))) {
+   points(subset(toothdat, toothdat$A2.1 == i, select = c('MDS1', 'MDS2')),
           col = cols[i], bg = cols[i], pch = pchs[i])
+   Plot_ConvexHull(subset(toothdat, toothdat$A2.1 == i, select = c('MDS1', 'MDS2')),
+                   lcolor = cols[i], shade = TRUE, scolor = cols[i], alpha.f = 0.1)
+
 }
+legend('bottomleft',
+       legend = c('Flat', 'Mid-depth', 'Deep', 'Asymmetrical'),
+       col = cols[1:max(toothdat$A2.1)],
+       pt.bg = cols[1:max(toothdat$A2.1)],
+       pch = pchs[1:max(toothdat$A2.1)])
 
 
-## Plot 2: MDS1/MDS3 ##
-plot(dentdat$MDS1, dentdat$MDS3, type = 'n',
+## Plot 2: Base Cross-Section (D2) ##
+plot(toothdat$MDS1, toothdat$MDS2, type = 'n',
      xlab = '', ylab = '', axes = F)
 box()
-mtext('MDS1', side = 1, line = 1)
-mtext('MDS3', side = 2, line = 1)
-mtext('MDS1 / MDS3', side = 3, line = 0.5, font = 2)
-for(i in 1:length(unique(dentdat$F1.1))) {
-   points(subset(dentdat, dentdat$F1.1 == i, select = c('MDS1', 'MDS3')),
+mtext('MDS1', side = 1, line = 0.5)
+mtext('MDS2', side = 2, line = 0.5)
+mtext('Base Cross-Section (D2)', side = 3, line = 0.5, font = 2, cex = 1.2)
+for(i in 1:length(unique(toothdat$D2.1))) {
+   points(subset(toothdat, toothdat$D2.1 == i, select = c('MDS1', 'MDS2')),
           col = cols[i], bg = cols[i], pch = pchs[i])
+   Plot_ConvexHull(subset(toothdat, toothdat$D2.1 == i, select = c('MDS1', 'MDS2')),
+                   lcolor = cols[i], shade = TRUE, scolor = cols[i], alpha.f = 0.1)
+
 }
+legend('bottomleft',
+       legend = c('Cone', 'Triangle', 'Rectangle', 'Multi-Progned', 'Asymmetrical'),
+       col = cols[1:max(toothdat$D2.1)],
+       pt.bg = cols[1:max(toothdat$D2.1)],
+       pch = pchs[1:max(toothdat$D2.1)])
 
-## Annotations (add to middle plot) ##
-# legend (add to plot #2)
-legend('bottom', inset = c(0, -0.28), cex = 1.4,
-       legend = c('Smooth', 'Linear','Geometric', 'Meandering', 'Spine', 'Branching'),
-       pch = pchs, col = cols, pt.bg = cols,
-       #bty = 'n',
-       horiz = T, xjust = 0.5, yjust = 0.5)
-mtext("Character F1: Ridge System Type", side = 3, font = 2, line = 3, cex = 1.1)
 
-## Plot 3: MDS2/MDS3
-plot(dentdat$MDS2, dentdat$MDS3, type = 'n',
+## Plot 3: Blade Symmetry (F1) ##
+plot(toothdat$MDS1, toothdat$MDS2, type = 'n',
      xlab = '', ylab = '', axes = F)
 box()
-mtext('MDS2', side = 1, line = 1)
-mtext('MDS3', side = 2, line = 1)
-mtext('MDS2 / MDS3', side = 3, line = 0.5, font = 2)
-for(i in 1:length(unique(dentdat$F1.1))) {
-   points(subset(dentdat, dentdat$F1.1 == i, select = c('MDS2', 'MDS3')),
+mtext('MDS1', side = 1, line = 0.5)
+mtext('MDS2', side = 2, line = 0.5)
+mtext('Blade Symmetry (F1)', side = 3, line = 0.5, font = 2, cex = 1.2)
+for(i in 1:length(unique(toothdat$F1.1))) {
+   points(subset(toothdat, toothdat$F1.1 == i, select = c('MDS1', 'MDS2')),
           col = cols[i], bg = cols[i], pch = pchs[i])
-}
+   Plot_ConvexHull(subset(toothdat, toothdat$F1.1 == i, select = c('MDS1', 'MDS2')),
+                   lcolor = cols[i], shade = TRUE, scolor = cols[i], alpha.f = 0.1)
 
+}
+legend('bottomleft',
+       legend = c('No blades', 'Symmetrical', 'Asymmetrical', 'One blade'),
+       col = cols[1:max(toothdat$F1.1)],
+       pt.bg = cols[1:max(toothdat$F1.1)],
+       pch = pchs[1:max(toothdat$F1.1)])
+
+
+## Plot 4: Pulp Cavity Length (J1) ##
+plot(toothdat$MDS1, toothdat$MDS2, type = 'n',
+     xlab = '', ylab = '', axes = F)
+box()
+mtext('MDS1', side = 1, line = 0.5)
+mtext('MDS2', side = 2, line = 0.5)
+mtext('Pulp Cavity Length (J1)', side = 3, line = 0.5, font = 2, cex = 1.2)
+for(i in 1:length(unique(toothdat$J1.1))) {
+   points(subset(toothdat, toothdat$J1.1 == i, select = c('MDS1', 'MDS2')),
+          col = cols[i], bg = cols[i], pch = pchs[i])
+   Plot_ConvexHull(subset(toothdat, toothdat$J1.1 == i, select = c('MDS1', 'MDS2')),
+                   lcolor = cols[i], shade = TRUE, scolor = cols[i], alpha.f = 0.1)
+
+}
+legend('bottomleft',
+       legend = c('None', '1/4', '1/3', '1/2', '3/4', 'Full-length'),
+       col = cols[1:max(toothdat$J1.1)],
+       pt.bg = cols[1:max(toothdat$J1.1)],
+       pch = pchs[1:max(toothdat$J1.1)])
 
 
 ###########################################
 #           EXTRA CODE                    #
 ###########################################
 
-
-##### Plot by coercing code values into factor #####
-plot(dentdat$MDS1, dentdat$MDS2, cex = 1.2,
-     col = cols[as.factor(dentdat$F1)], bg = cols[as.factor(dentdat$F1)],
-     pch = pchs[as.factor(dentdat$F1)],
-     xlab = 'MDS1', ylab = 'MDS2')
-# Ridge system type is trait F1.
-legend('topleft', legend = c('smooth', 'linear','geometric', 'meandering', 'spine', 'Branching'), pch = 16, cex = 1, col = cols)
-
-
-
 ##### Manually import trait CSV files and define weights #####
-# # Traits:
-# traitset <- import_traits_csvs(csvname = "Trait*", csvpath = "data/v0.5/traitCSV_denticles_v0.5/", recurs = F)
+## This section allows you to change the underlying distance matrices
+# and/or weights for any given trait, to explore the sensitivity of the calculation.
 
-# # Here we have given a specific weight to each denticle character; If no weights are defined, the function assumes equal weight to all traits
-# weightset <- c(2,0.5,1,1,1,1,1,1,1,1,0.5,0.5,0.5,2,1,1,1,0.5,0.5,0.5,0.5,0.5,0.5,1,0.5,0.5,0.5,0.5,0.5,1,0.5,0.5,0.5,1,0.5,0.5,1,1,1,1,1,1,1,1,1,1)
+# ## Traits:
+# # Calls the distance matrix csv files from the "data" folder of the R package.
+# #   You can also manually make trait CSVs and call from a different folder if you want.
+# traitset <- import_traits_csvs(csvname = "Trait*", csvpath = "data/v0.5/traitCSV_teeth_v0.5/", recurs = F)
+
+# ## Weights:
+# # Here we have given a specific weight to each tooth character; If no weights are defined, the function assumes equal weight to all traits
+# weightset <- c(1, 1, 1, 0.5, 1, 1, 0.5, 1, 0.5, 0.5, 1, 1, 1, 0.5, 0.5, 0.5, 0.5, 0.5, 0.5, 0.5, 0.5, 1, 0.5, 0.5, 0.5, 0.5, 0.5, 0.5, 0.5, 0.5, 0.5, 0.5, 0.5, 0.5, 0.5, 0.5, 1, 0.5, 0.5, 0.5, 1, 0.5, 0.5, 0.5, 1, 0.5, 0.5, 0.5, 1, 0.5, 0.5, 1, 1)
 # names(weightset) <- names(traitset) #assign names to the weights vector to confirm correct order
 
 
@@ -322,8 +367,8 @@ legend('topleft', legend = c('smooth', 'linear','geometric', 'meandering', 'spin
 # # function returns an NA value.
 # # Since implementing the dropdown-menu based coding this has not been an issue, but this is how we
 # # used to identify coding errors
-# df.na <- subset(dent_distances.morphotypes, is.na(dent_distances.morphotypes$dist.sum))
+# df.na <- subset(tooth_distances.morphotypes, is.na(tooth_distances.morphotypes$dist.sum))
 #
 # #list of objects that broke the function (if any): (I often use column 3, but the object IDs (column 8) are also good for this);
-# # Correct issues and re-run the dat_distances function until this returns an empty object.
+# # Correct issues and re-run the distances_clust function until this returns an empty object.
 # unique(df.na[,8])
