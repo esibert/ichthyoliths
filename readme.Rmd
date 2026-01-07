@@ -1,19 +1,21 @@
 ---
 title: "Readme"
 author: "Elizabeth Sibert"
-date: "October 2024"
+date: "January 2026"
 output: html_document
 ---
 
-Welcome to the "ichthyoliths" package, A package for calculating morphological disparity of fish teeth and denticles. At the current time (June 2023), the default version for tooth morphometrics is at v0.4 and denticles is at v0.5. Upon publication, both tooth and denticle version numbers will be updated to v1.0. Further updates will be documented accordingly. 
+Welcome to the "ichthyoliths" package, A package for calculating morphological disparity of fish teeth and denticles. At the current time (Jan 2026), the default version for tooth morphometrics is at v0.5 and denticles is at v0.5. Further updates will be documented accordingly, please see VersionNotes.R for the most recent updates. 
 
 To download and use the R package, please use
 devtools::install_github('esibert/ichthyoliths')
 
-All functions have extensive help documentation. 
+All functions have extensive help documentation, please use those to see all the features (especially the rangechart function!). 
 
 For details, help, and bug reports, please contact Elizabeth Sibert \email{esibert@@whoi.edu}.
 
-This ReadMe is somewhat out of date, and will be updated upon publication of the tooth and denticle morphometrics papers in early 2025. In the interim, please see the dentmorph_v0.5_Example_code.R in the "example_code" directory for a tutorial on how to use the R Package. 
+For example code, Please see the dentmorph_v0.5_Example_code.R and toothmorph_v0.5_example_code.R in the "example_code" directory for walk-through tutorials on how to use the R Package. 
+
+For detailed version notes and update notes, please see VersionNotes.R
 
 ```

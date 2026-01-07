@@ -2,7 +2,7 @@
 #'
 #' A package for calculating morphological disparity of ichthyoliths (fish teeth and shark scales)
 #'
-#' The ichthyolith package provides functions to define trait disparity matrices,
+#' The ichthyoliths package provides functions to define trait disparity matrices,
 #' calculate tooth disparity, and create range charts and figures through time.
 #'
 #' The disparity method used in this version of the ichthyoliths package (currently v0.5,
@@ -19,7 +19,7 @@
 #' Available here: https://academic.oup.com/iob/advance-article/doi/10.1093/iob/obaf021/8129726
 #'
 #' Teeth:
-#' The tooth manuscript describing v0.5 is still undergoing review as of 6/12/2025,
+#' The tooth manuscript describing v0.5 is currently undergoing review,
 #'    will update here when it is published.
 #'
 #' The original version of the code (v0.1) is described in detail in
