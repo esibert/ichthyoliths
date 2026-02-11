@@ -97,7 +97,7 @@ invalid.df <- validate_code(dentdat, code.version = "denticle_v0.5")
 # last 46 columns of the spreadsheet if you are using our google drive template.
 # To confirm,
 colnames(dentdat)
-# This displays all the columns. We want columns 57 to 100 from this spreadsheet
+# This displays all the columns. We want columns 57 to 102 from this spreadsheet
 
 
 ## Establish the numerical values of the morphological character code:
@@ -149,7 +149,7 @@ dent_distances.morphotypes <- distances_clust(morph = dentdat,
 # Check for mis-coded values - if there are issues, you will get NA values; You'll need
 # to find them and fix them in your coded sheet and then re-run the distances function.
 # The below code helps you ID them.
-df.na <- subset(tooth.distances, is.na(tooth.distances$dist.sum))
+df.na <- subset(dent_distances.morphotypes, is.na(dent_distances.morphotypes$dist.sum))
 unique(df.na[,8])
 
 ##### Step 2b: Turn the output of the distance function into a distance matrix for ordination #####
