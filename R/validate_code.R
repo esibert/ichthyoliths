@@ -39,7 +39,7 @@ validate_code <- function(code.df, code.version = c('tooth_v0.5, denticle_v0.5')
       B1 <- c("B1.0.Too broken to code", "B1.1.Smooth", "B1.2.Fingerprinted", "B1.3.Furrowed",
               "B1.4.Allen-wrench", "B1.5.Spiraling striation", "B1.6.Spiraling fingerprints",
               "B1.7.Dimpled", "")
-      B2 <- c("B2.0.No modifiers or too broken to code", "B2.1.Cloudy", "B2.2.Slinky", "B2.3.Lipped", "")
+      B2 <- c("B2.0.No modifiers or too broken to code", "B2.1.Wavy", "B2.2.Slinky", "B2.3.Lipped", "")
       B3 <- c("B3.0.No Modifiers or too broken to code", "B3.1.Whole tooth", "B3.2.One side", "B3.3.Tip only",
               "B3.4.Middle only", "B3.5.Bottom only", "")
       C1 <- c("C1.0.Too broken to code", "C1.1.Uncurved", "C1.2.Minor curve", "C1.3.Major curve",
