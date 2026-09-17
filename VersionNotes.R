@@ -6,6 +6,12 @@
 #                                            #
 ##############################################
 
+##### Denticle Code v0.5.1 is live! - September 2026 #####
+# A few updates to the code to capture additional variation observed over the past year
+# Small updates to traits B2, C2, I1, I3, and L2.
+# Currently an in-house version but additional information can be tracked as necessary.
+# Updated validate_code function to include denticles_v0.5.1
+
 ##### Denticle Code v0.5 is live! - June 2025 #####
 # To go along with the formal publication of the Denticle Morphology MS,
 # denticles_v0.5 has been Formally published
